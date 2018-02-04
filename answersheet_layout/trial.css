@@ -1,0 +1,136 @@
+@font-face {
+    font-family: answersheet;
+    src: url(answersheet.woff);
+}
+
+.A3 {
+    width: 420mm;
+    height: 296mm;
+}
+
+.column1 {
+    position: absolute;
+    left: 15mm;
+    top: 26mm;
+    width: 124mm;
+    height: 243mm;
+}
+
+.column2 {
+    position: absolute;
+    left: 153mm;
+    top: 26mm;
+    width: 124mm;
+    height: 243mm;
+}
+
+.column3 {
+    position: absolute;
+    left: 293mm;
+    top: 26mm;
+    width: 124mm;
+    height: 243mm;
+}
+
+.column_divider {
+    position: absolute;
+    height: 4mm;
+    width: 6mm;
+    background-color: black;
+}
+
+.column_flag_1 {
+    left: 10mm;
+    top: 20mm;
+}
+
+.column_flag_2 {
+    left: 10mm;
+    top: 274mm;
+}
+
+.column_flag_3 {
+    left: 145mm;
+    top: 20mm;
+}
+
+.column_flag_4 {
+    left: 145mm;
+    top: 274mm;
+}
+
+.column_flag_5 {
+    left: 275mm;
+    top: 20mm;
+}
+
+.column_flag_6 {
+    left: 275mm;
+    top: 274mm;
+}
+
+.column_flag_7 {
+    left: 401mm;
+    top: 20mm;
+}
+
+.column_flag_8 {
+    left: 401mm;
+    top: 274mm;
+}
+
+.anti_reverse_1 {
+    position: absolute;
+    height: 5mm;
+    width: 5mm;
+    left: 38mm;
+    top: 16mm;
+    background-color: black;
+}
+
+.answer_sheet_title {
+    margin-top: 2mm;
+    margin-bottom: 10mm;
+    font-size: 7mm;
+    font-weight: bold;
+    text-align: center;
+}
+
+.answer_sheet_header {
+    font-size: 3mm;
+}
+
+.answer_sheet_header > table, .answer_sheet_header > table > tbody > tr, .answer_sheet_header > table > tbody > tr > td {
+    border-collapse: collapse;
+    border: 1px solid black;
+    text-align: left;
+}
+
+.answer_sheet_header > table table {
+    border-collapse: collapse;
+    border: 1px solid black;
+    text-align: center;
+    margin: 2mm;
+}
+
+.answer_sheet_header > table tr {
+    border-collapse: collapse;
+    border: 1px solid black;
+    text-align: center;
+    min-height: 5mm;
+}
+
+.answer_sheet_header > table td {
+    border-collapse: collapse;
+    border: 1px solid black;
+    text-align: center;
+}
+
+.use_answer_sheet_font {
+    font-family: answersheet;
+    font-size: 5mm;
+}
+
+.fixed_row {
+    height: 5mm;
+}
