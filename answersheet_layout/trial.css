@@ -86,9 +86,14 @@
     background-color: black;
 }
 
-.span_column_flag_1 {
+.column_spanner_flag_1 {
     left: 152mm;
     top: 20mm;
+}
+
+.column_spanner_flag_2 {
+    left: 287mm;
+    top: 20mm
 }
 
 .anti_reverse_1 {
