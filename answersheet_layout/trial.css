@@ -160,6 +160,11 @@
     width: 100%;
     height: 50mm;
     border: 1px solid black;
+    position: relative;
+}
+
+.answer_sheet_answer_area_objective:hover .resizer {
+    display: block;
 }
 
 .answer_sheet_answer_area_subjective > table{
@@ -203,6 +208,20 @@
     margin-top: 1mm;
     padding-left: 2mm;
 }
+
+
+.resizer {
+    width: 10px;
+    height: 10px;
+    background: blue;
+    position:absolute;
+    right: 0;
+    bottom: 0;
+    cursor: move;
+    display: none;
+}
+
+body{font-family:"宋体","Arial";}
 
 
 

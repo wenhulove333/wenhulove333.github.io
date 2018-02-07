@@ -127,7 +127,7 @@
             <div class="answer_sheet_problem_title">
                 小题9
             </div>
-            <div class="answer_sheet_answer_area_objective" style="height: 80mm">
+            <div class="answer_sheet_answer_area_objective" id="problem_9" style="height: 80mm">
 
             </div>
         </div>
@@ -210,5 +210,41 @@
         </div>
     </div>
 </body>
+
+<script>
+    var problem_areas = document.getElementsByClassName("answer_sheet_answer_area_objective");
+    var index;
+    for (index in problem_areas) {
+        letMeResizable(problem_areas[index]);
+    }
+
+
+    function letMeResizable(me) {
+        me.resizer = document.createElement('div');
+        me.resizer.className = 'resizer';
+        me.appendChild(me.resizer);
+        me.resizer.addEventListener('mousedown', initDrag, false);
+
+        function initDrag(e) {
+            me.startX = e.clientX;
+            me.startY = e.clientY;
+            me.startWidth = parseInt(document.defaultView.getComputedStyle(me).width, 10);
+            me.startHeight = parseInt(document.defaultView.getComputedStyle(me).height, 10);
+            document.documentElement.addEventListener('mousemove', doDrag, false);
+            document.documentElement.addEventListener('mouseup', stopDrag, false);
+        }
+
+        function doDrag(e) {
+            me.style.width = me.startWidth;
+            me.style.height = (me.startHeight + e.clientY - me.startY) + 'px';
+            console.log(me.startWidth, e, me.startX, me.style.width);
+        }
+
+        function stopDrag(e) {
+            document.documentElement.removeEventListener('mousemove', doDrag, false);
+            document.documentElement.removeEventListener('mouseup', stopDrag, false);
+        }
+    }
+</script>
 
 </html>
