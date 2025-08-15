@@ -639,6 +639,214 @@
             line-height: 1.8;
         }
 
+        /* 应用详情页样式 */
+        .app-detail-container {
+            padding: 20px;
+        }
+
+        .app-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .app-title {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .app-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #1a73e8, #26c6da);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: white;
+        }
+
+        .app-name {
+            font-size: 24px;
+            font-weight: 600;
+        }
+
+        .app-version {
+            background: rgba(26, 115, 232, 0.15);
+            color: var(--primary);
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+
+        .app-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .app-info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+
+        .app-info-card {
+            background-color: var(--dark-card);
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid var(--border);
+        }
+
+        .info-group {
+            margin-bottom: 18px;
+        }
+
+        .info-label {
+            font-weight: 600;
+            color: var(--light-text);
+            margin-bottom: 6px;
+            font-size: 14px;
+        }
+
+        .info-value {
+            font-size: 16px;
+            color: var(--dark-text);
+            padding: 8px 0;
+        }
+
+        .api-section {
+            margin-top: 30px;
+        }
+
+        .api-card {
+            background-color: var(--dark-card);
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid var(--border);
+            margin-bottom: 20px;
+        }
+
+        .api-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .api-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .api-method {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .method-post {
+            background: rgba(16, 185, 129, 0.15);
+            color: #10b981;
+        }
+
+        .api-path {
+            font-family: monospace;
+            background: rgba(0, 0, 0, 0.2);
+            padding: 8px 15px;
+            border-radius: 6px;
+            margin: 15px 0;
+            overflow-x: auto;
+        }
+
+        .api-description {
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .params-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: rgba(30, 41, 59, 0.3);
+            border-radius: 8px;
+            overflow: hidden;
+            margin: 15px 0;
+        }
+
+        .params-table th {
+            background: rgba(26, 115, 232, 0.2);
+            padding: 12px 15px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 14px;
+            color: var(--primary);
+        }
+
+        .params-table td {
+            padding: 12px 15px;
+            border-bottom: 1px solid var(--border);
+            font-size: 14px;
+        }
+
+        .params-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .response-example {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+            font-family: monospace;
+            white-space: pre-wrap;
+            max-height: 200px;
+            overflow-y: auto;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .back-button {
+            margin-bottom: 20px;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        .status-active {
+            background: rgba(76, 175, 80, 0.15);
+            color: #4caf50;
+        }
+
+        .tech-tag {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            background: rgba(26, 115, 232, 0.15);
+            color: var(--primary);
+            font-size: 13px;
+            margin-right: 8px;
+            margin-bottom: 8px;
+        }
+
         /* 响应式调整 */
         @media (max-width: 1200px) {
             .card-grid {
@@ -2366,6 +2574,150 @@
             }
         };
 
+        const AppDetailManagement = {
+            template: `
+                <div class="app-detail-container">
+                    <div class="back-button">
+                        <button class="btn btn-outline" @click="goBack">
+                            <i class="fas fa-arrow-left"></i> 返回应用列表
+                        </button>
+                    </div>
+
+                    <div class="app-info-grid">
+                        <div class="app-info-card">
+                            <div class="info-group">
+                                <div class="info-label">应用名称</div>
+                                <div class="info-value">金融风控系统</div>
+                            </div>
+
+                            <div class="info-group">
+                                <div class="info-label">应用ID</div>
+                                <div class="info-value">APP-FRS-2023-001</div>
+                            </div>
+
+                            <div class="info-group">
+                                <div class="info-label">应用版本</div>
+                                <div class="info-value">v2.1.3</div>
+                            </div>
+
+                            <div class="info-group">
+                                <div class="info-label">部署状态</div>
+                                <div class="info-value">
+                                    <span class="status-badge status-active">已上线</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="app-info-card">
+                            <div class="info-group">
+                                <div class="info-label">应用类型</div>
+                                <div class="info-value">金融风控</div>
+                            </div>
+
+                            <div class="info-group">
+                                <div class="info-label">注册时间</div>
+                                <div class="info-value">2023-06-15 14:30:22</div>
+                            </div>
+
+                            <div class="info-group">
+                                <div class="info-label">最后更新时间</div>
+                                <div class="info-value">2023-10-21 09:45:17</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="app-info-card">
+                        <div class="info-group">
+                            <div class="info-label">应用描述</div>
+                            <div class="info-value">
+                                银行联合风控模型，通过多方数据协作分析用户信用风险，提供实时的风险评估和预警功能。该系统整合了多家银行的数据，使用联邦学习技术确保数据隐私安全，支持分布式部署和实时计算。
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="api-section">
+                        <h2 class="section-title">
+                            <i class="fas fa-plug"></i>
+                            应用接口
+                        </h2>
+
+                        <div v-for="(api, index) in apis" :key="index" class="api-card">
+                            <div class="api-header">
+                                <div class="api-title">
+                                    <i class="fas fa-link"></i> {{ api.name }}
+                                </div>
+                                <div>
+                                    <span class="api-method method-post">{{ api.method }}</span>
+                                </div>
+                            </div>
+
+                            <div class="api-path">{{ api.path }}</div>
+
+                            <div class="api-description">{{ api.description }}</div>
+
+                            <div class="info-group">
+                                <div class="info-label">请求参数</div>
+                                <table class="params-table">
+                                    <thead>
+                                        <tr>
+                                            <th width="20%">参数名</th>
+                                            <th width="50%">描述</th>
+                                            <th width="30%">类型</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr v-for="(param, pIndex) in api.params" :key="pIndex">
+                                            <td>{{ param.name }}</td>
+                                            <td>{{ param.description }}</td>
+                                            <td>{{ param.type }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div class="info-group">
+                                <div class="info-label">响应示例</div>
+                                <pre class="response-example">{{ api.response }}</pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `,
+            data() {
+                return {
+                    apis: [
+                        {
+                            method: "POST",
+                            name: "verify_account",
+                            path: "/api/v1/ta/b207c04d-248e-42e5-b139-5266cb9c919f/verify_account",
+                            description: "Verify account to check whether there are any risk factors associated with the account",
+                            params: [
+                                {
+                                    name: "doId",
+                                    description: "identifier of the data object",
+                                    type: "string"
+                                },
+                                {
+                                    name: "account_id",
+                                    description: "identifier of the account",
+                                    type: "string"
+                                }
+                            ],
+                            response: JSON.stringify({
+                                account_id: "62230121012345678901",
+                                is_risk: false,
+                            }, null, 2)
+                        }
+                    ]
+                };
+            },
+            methods: {
+                goBack() {
+                    this.$emit('back');
+                }
+            }
+        };
+
         // 应用管理组件
         const AppManagement = {
             template: `
@@ -2375,13 +2727,13 @@
                         应用管理
                     </h2>
 
-                    <div class="card">
+                    <div class="card" v-if="viewMode === 'list'">
                         <div class="card-header">
                             <div class="card-title">
                                 <i class="fas fa-list"></i>
                                 已注册应用列表
                             </div>
-                            <button class="btn btn-primary">
+                            <button class="btn btn-primary" @click="registerApp()">
                                 <i class="fas fa-plus"></i> 注册新应用
                             </button>
                         </div>
@@ -2401,7 +2753,7 @@
                                     <td>v2.1.3</td>
                                     <td>银行联合风控模型</td>
                                     <td>
-                                        <button class="btn btn-outline btn-sm">
+                                        <button class="btn btn-outline btn-sm" @click="viewAppDetail()">
                                             <i class="fas fa-eye"></i> 详情
                                         </button>
                                     </td>
@@ -2411,7 +2763,7 @@
                                     <td>v1.4.0</td>
                                     <td>跨机构医疗数据联合分析</td>
                                     <td>
-                                        <button class="btn btn-outline btn-sm">
+                                        <button class="btn btn-outline btn-sm" @click="viewAppDetail()">
                                             <i class="fas fa-eye"></i> 详情
                                         </button>
                                     </td>
@@ -2421,7 +2773,7 @@
                                     <td>v1.0.2</td>
                                     <td>多方广告转化率分析</td>
                                     <td>
-                                        <button class="btn btn-outline btn-sm">
+                                        <button class="btn btn-outline btn-sm" @click="viewAppDetail()">
                                             <i class="fas fa-eye"></i> 详情
                                         </button>
                                     </td>
@@ -2431,7 +2783,7 @@
                                     <td>v1.2.0</td>
                                     <td>多方供应链数据协同分析</td>
                                     <td>
-                                        <button class="btn btn-outline btn-sm">
+                                        <button class="btn btn-outline btn-sm" @click="viewAppDetail()">
                                             <i class="fas fa-eye"></i> 详情
                                         </button>
                                     </td>
@@ -2441,7 +2793,7 @@
                                     <td>v3.0.1</td>
                                     <td>联合保险精算模型</td>
                                     <td>
-                                        <button class="btn btn-outline btn-sm">
+                                        <button class="btn btn-outline btn-sm" @click="viewAppDetail()">
                                             <i class="fas fa-eye"></i> 详情
                                         </button>
                                     </td>
@@ -2457,12 +2809,17 @@
                         </div>
                     </div>
 
-                    <h2 class="section-title">
-                        <i class="fas fa-plus-circle"></i>
-                        应用注册
-                    </h2>
+                    <div v-if="viewMode === 'detail'">
+                        <AppDetailManagement @back="viewMode = 'list'"/>
+                    </div>
 
-                    <div class="card">
+                    <div class="card" v-if="viewMode === 'register'">
+                        <div class="back-button">
+                            <button class="btn btn-outline" @click="goBack">
+                                <i class="fas fa-arrow-left"></i> 返回应用列表
+                            </button>
+                        </div>
+
                         <div class="form-group">
                             <label class="form-label">应用名称</label>
                             <input type="text" class="form-control" placeholder="请输入应用名称">
@@ -2494,7 +2851,26 @@
                         </button>
                     </div>
                 </div>
-            `
+            `,
+            components: {
+                AppDetailManagement
+            },
+            data() {
+                return {
+                    viewMode: 'list', // 'list' 或 'detail'
+                };
+            },
+            methods: {
+                viewAppDetail() {
+                    this.viewMode = 'detail';
+                },
+                goBack() {
+                    this.viewMode = 'list';
+                },
+                registerApp() {
+                    this.viewMode = 'register';
+                }
+            }
         };
 
         // 任务中心组件
