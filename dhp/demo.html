@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DHP 数据安全处理演示系统</title>
+    <title>DHP数据机密计算演示</title>
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <style>
@@ -295,8 +295,8 @@
     <div id="app">
         <div class="container">
             <header>
-                <h1>DHP 数据安全处理演示系统</h1>
-                <p class="subtitle">展示数据如何在可信执行环境(TEE)中安全地进行计算，保护数据隐私</p>
+                <h1>DHP数据机密计算演示</h1>
+                <p class="subtitle">展示数据基于DHP+可信执行环境(TEE)进行安全计算，保护数据隐私</p>
             </header>
 
             <div class="workflow">
@@ -305,7 +305,7 @@
                 </div>
                 <div class="step" :class="{active: currentStep >= 1}">
                     <div class="step-number">1</div>
-                    <div class="step-title">数据提供</div>
+                    <div class="step-title">原始数据提供</div>
                     <div class="step-desc">Alice提供原始数据并进行ZTDO封装</div>
                 </div>
                 <div class="step" :class="{active: currentStep >= 2}">
@@ -334,7 +334,7 @@
                     </button>
 
                     <div v-if="aliceData.length > 0">
-                        <h3>原始数据</h3>
+                        <h3>原始数据集</h3>
                         <div class="data-box">
                             <div class="data-item" v-for="(num, index) in aliceData" :key="index">
                                 <span>数据 {{ index + 1 }}</span>
@@ -441,7 +441,7 @@
                     "验证数据完整性",
                     "解密数据",
                     "执行安全计算",
-                    "加密计算结果",
+                    "审核计算结果",
                     "返回安全结果"
                 ],
                 currentComputationStep: 0
