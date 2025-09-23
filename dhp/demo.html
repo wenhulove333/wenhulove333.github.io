@@ -20,7 +20,7 @@
             color: #333;
         }
         .container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
             padding: 20px;
         }
@@ -78,14 +78,14 @@
             box-shadow: 0 5px 15px rgba(231, 76, 60, 0.4);
         }
         .step-title {
-            font-size: 1.4rem;
+            font-size: 1.3rem;
             font-weight: 600;
             margin-bottom: 15px;
             color: #2c3e50;
         }
         .step-desc {
             color: #7f8c8d;
-            font-size: 1rem;
+            font-size: 0.95rem;
             line-height: 1.5;
         }
         .progress-bar {
@@ -105,26 +105,98 @@
             transition: width 0.7s ease;
             border-radius: 3px;
         }
-        .demo-content {
+
+        /* 新布局样式 */
+        .app-generation {
             display: flex;
-            flex-wrap: wrap;
-            gap: 25px;
-            margin-bottom: 50px;
+            justify-content: center;
+            margin-bottom: 30px;
         }
-        .card {
-            flex: 1;
-            min-width: 350px;
+        .app-card {
+            width: 48%;
             background: white;
             border-radius: 16px;
             padding: 25px;
             box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
             transition: transform 0.3s ease;
         }
-        .card:hover {
+        .app-card:hover {
             transform: translateY(-5px);
         }
+
+        .computation-layout {
+            display: flex;
+            justify-content: space-between;
+            align-items: stretch;
+            margin-bottom: 40px;
+        }
+
+        .data-provider {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .data-card {
+            background: white;
+            border-radius: 16px;
+            padding: 25px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        .data-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .tee-center {
+            flex: 1.2;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+        }
+
+        .arrow-to-tee {
+            position: absolute;
+            top: 50%;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            z-index: 5;
+            pointer-events: none;
+        }
+
+        .arrow-left, .arrow-right {
+            font-size: 3rem;
+            color: #3498db;
+            opacity: 0.7;
+        }
+
+        .arrow-left {
+            margin-left: -40px;
+        }
+
+        .arrow-right {
+            margin-right: -40px;
+        }
+
+        .tee-card {
+            background: linear-gradient(135deg, #2c3e50 0%, #1a2530 100%);
+            color: white;
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
         .card-title {
-            font-size: 1.4rem;
+            font-size: 1.3rem;
             font-weight: 600;
             margin-bottom: 20px;
             padding-bottom: 15px;
@@ -133,9 +205,16 @@
             display: flex;
             align-items: center;
         }
+        .tee-card .card-title {
+            color: white;
+            border-bottom-color: rgba(255,255,255,0.2);
+        }
         .card-title i {
             margin-right: 12px;
             color: #e74c3c;
+        }
+        .tee-card .card-title i {
+            color: #3498db;
         }
         .input-group {
             margin-bottom: 20px;
@@ -145,6 +224,9 @@
             margin-bottom: 8px;
             font-weight: 600;
             color: #2c3e50;
+        }
+        .tee-card .input-group label {
+            color: white;
         }
         .input-group input {
             width: 100%;
@@ -184,8 +266,19 @@
         .btn-secondary:hover {
             background: #c0392b;
         }
+        .btn-success {
+            background: #2ecc71;
+            color: white;
+        }
+        .btn-success:hover {
+            background: #27ae60;
+        }
         .btn i {
             margin-right: 8px;
+        }
+        .btn:disabled {
+            background: #bdc3c7;
+            cursor: not-allowed;
         }
         .data-box {
             background: #f8f9fa;
@@ -197,6 +290,11 @@
             overflow: hidden;
             min-height: 100px;
             color: #2c3e50;
+            flex-grow: 1;
+        }
+        .tee-card .data-box {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
         }
         .data-item {
             padding: 10px;
@@ -205,29 +303,13 @@
             justify-content: space-between;
             align-items: center;
         }
+        .tee-card .data-item {
+            border-bottom-color: rgba(255,255,255,0.2);
+        }
         .data-item:last-child {
             border-bottom: none;
         }
-        .tee {
-            background: linear-gradient(135deg, #2c3e50 0%, #1a2530 100%);
-            color: white;
-            text-align: center;
-            padding: 40px 30px;
-            border-radius: 16px;
-            margin-bottom: 40px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-        }
-        .tee-title {
-            font-size: 1.8rem;
-            margin-bottom: 25px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .tee-title i {
-            margin-right: 15px;
-            color: #3498db;
-        }
+
         .info-box {
             background: rgba(255, 255, 255, 0.1);
             color: #fff;
@@ -277,6 +359,47 @@
             font-size: 0.9rem;
             margin-left: 10px;
         }
+        .success-badge {
+            display: inline-block;
+            padding: 5px 12px;
+            background: #2ecc71;
+            color: white;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            margin-left: 10px;
+        }
+        .app-hash {
+            font-family: monospace;
+            font-size: 0.9rem;
+            word-break: break-all;
+            color: #3498db;
+            margin-top: 10px;
+        }
+
+		.data-flow {
+		  display: flex;
+		  justify-content: space-between;
+		  align-items: center;
+		  margin: 20px 0;
+		}
+
+		.arrow {
+		  font-size: 24px;
+		  color: #3498db;
+		  animation: pulse 2s infinite;
+		}
+
+        @media (max-width: 1200px) {
+            .computation-layout {
+                flex-direction: column;
+            }
+            .arrow-to-tee {
+                display: none;
+            }
+            .app-card {
+                width: 80%;
+            }
+        }
         @media (max-width: 768px) {
             .workflow {
                 flex-direction: column;
@@ -285,8 +408,8 @@
             .progress-bar {
                 display: none;
             }
-            .demo-content {
-                flex-direction: column;
+            .app-card {
+                width: 100%;
             }
         }
     </style>
@@ -305,79 +428,135 @@
                 </div>
                 <div class="step" :class="{active: currentStep >= 1}">
                     <div class="step-number">1</div>
-                    <div class="step-title">原始数据提供</div>
-                    <div class="step-desc">Alice提供原始数据并进行ZTDO封装</div>
+                    <div class="step-title">生成可信应用</div>
+                    <div class="step-desc">创建并部署可信应用到TEE环境中</div>
                 </div>
                 <div class="step" :class="{active: currentStep >= 2}">
                     <div class="step-number">2</div>
-                    <div class="step-title">机密计算</div>
-                    <div class="step-desc">Bob调用可信应用执行机密计算</div>
+                    <div class="step-title">Alice数据封装</div>
+                    <div class="step-desc">Alice提供原始数据并进行ZTDO封装</div>
                 </div>
                 <div class="step" :class="{active: currentStep >= 3}">
                     <div class="step-number">3</div>
-                    <div class="step-title">获取结果</div>
-                    <div class="step-desc">在TEE中计算数据集的交集并返回结果</div>
+                    <div class="step-title">Bob数据封装</div>
+                    <div class="step-desc">Bob提供原始数据并进行ZTDO封装</div>
+                </div>
+                <div class="step" :class="{active: currentStep >= 4}">
+                    <div class="step-number">4</div>
+                    <div class="step-title">联合计算</div>
+                    <div class="step-desc">在TEE中进行联合计算并返回结果</div>
                 </div>
             </div>
 
-            <div class="demo-content">
-                <div class="card">
+            <!-- 可信应用生成部分 -->
+            <div class="app-generation">
+                <div class="app-card">
                     <div class="card-title">
-                        <i class="fas fa-user-circle"></i> 数据提供方 Alice
+                        <i class="fas fa-cube"></i> 可信应用生成
                     </div>
                     <div class="input-group">
-                        <label for="alice-data">输入原始数据（逗号分隔）</label>
-                        <input type="text" id="alice-data" v-model="aliceInput" placeholder="例如: 1, 3, 5, 7, 11">
+                        <label for="app-name">应用名称</label>
+                        <input type="text" id="app-name" v-model="appName" placeholder="例如: 隐私求交应用">
                     </div>
-                    <button class="btn btn-primary" @click="submitAliceData">
-                        <i class="fas fa-shield-alt"></i> ZTDO数据封装
+                    <button class="btn btn-success" @click="generateTrustedApp">
+                        <i class="fas fa-cogs"></i> 生成可信应用
                     </button>
 
-                    <div v-if="aliceData.length > 0">
-                        <h3>原始数据集</h3>
+                    <div v-if="trustedAppGenerated">
+                        <h3>可信应用信息 <span class="success-badge">已部署</span></h3>
                         <div class="data-box">
-                            <div class="data-item" v-for="(num, index) in aliceData" :key="index">
-                                <span>数据 {{ index + 1 }}</span>
-                                <span>{{ num }}</span>
+                            <div class="data-item">
+                                <span>应用名称</span>
+                                <span>{{ appName }}</span>
+                            </div>
+                            <div class="data-item">
+                                <span>应用ID</span>
+                                <span>{{ appId }}</span>
+                            </div>
+                            <div class="data-item">
+                                <span>部署时间</span>
+                                <span>{{ deploymentTime }}</span>
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
 
-                    <div v-if="encodedData">
-                        <h3>ZTDO封装数据 <span class="result-badge">已加密</span></h3>
-                        <div class="data-box">
-                            <div class="encoded-data">{{ encodedData }}</div>
+            <!-- 数据提供方和TEE布局 -->
+            <div class="computation-layout">
+                <!-- Alice数据提供方 -->
+                <div class="data-provider">
+                    <div class="data-card">
+                        <div class="card-title">
+                            <i class="fas fa-user-circle"></i> 数据提供方 Alice
+                        </div>
+                        <div class="input-group">
+                            <label for="alice-data">输入原始数据（逗号分隔）</label>
+                            <input type="text" id="alice-data" v-model="aliceInput" placeholder="例如: 1, 3, 5, 7, 11" :disabled="!trustedAppGenerated">
+                        </div>
+                        <button class="btn btn-primary" @click="submitAliceData" :disabled="!trustedAppGenerated">
+                            <i class="fas fa-shield-alt"></i> ZTDO数据封装
+                        </button>
+
+                        <div v-if="aliceData.length > 0">
+                            <h3>原始数据集</h3>
+                            <div class="data-box">
+                                <div class="data-item" v-for="(num, index) in aliceData" :key="index">
+                                    <span>数据 {{ index + 1 }}</span>
+                                    <span>{{ num }}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div v-if="aliceEncodedData">
+                            <h3>ZTDO封装数据 <span class="result-badge">已加密</span></h3>
+                            <div class="data-box">
+                                <div class="encoded-data">{{ aliceEncodedData }}</div>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="card">
-                    <div class="card-title">
-                        <i class="fas fa-user-circle"></i> 数据使用方 Bob
-                    </div>
-                    <div class="input-group">
-                        <label for="bob-data">输入Bob的数据（逗号分隔）</label>
-                        <input type="text" id="bob-data" v-model="bobInput" placeholder="例如: 3, 5, 9, 11, 13">
-                    </div>
-                    <button class="btn btn-secondary" @click="submitBobData" :disabled="!encodedData">
-                        <i class="fas fa-calculator"></i> 机密计算请求
-                    </button>
+				<div class="data-flow"><div class="arrow"><i class="fas fa-long-arrow-alt-right"></i></div></div>
 
-                    <div v-if="bobData.length > 0">
-                        <h3>Bob的数据集</h3>
-                        <div class="data-box">
-                            <div class="data-item" v-for="(num, index) in bobData" :key="index">
-                                <span>数据 {{ index + 1 }}</span>
-                                <span>{{ num }}</span>
+                <!-- TEE中心部分 -->
+                <div class="tee-center">
+                    <div class="tee-card">
+                        <div class="card-title">
+                            <i class="fas fa-shield-alt"></i> 可信执行环境 (TEE)
+                        </div>
+                        <div class="info-box">
+                            <i class="fas fa-info-circle"></i> 在TEE中，数据被解密并执行计算，但任何人都无法从外部访问原始数据。
+                        </div>
+
+                        <div v-if="currentStep < 4">
+                            <div class="data-box">
+                                <div v-if="currentStep === 1">等待生成可信应用...</div>
+                                <div v-else-if="currentStep === 2">等待Alice数据封装完成...</div>
+                                <div v-else-if="currentStep === 3">等待Bob数据封装完成...</div>
                             </div>
                         </div>
-                    </div>
+                        <div v-else>
+                            <button class="btn btn-secondary" @click="startComputation" :disabled="computationStarted">
+                                <i class="fas fa-calculator"></i> 开始联合计算
+                            </button>
 
-                    <div>
-                        <h3>交集计算结果</h3>
-                        <div class="data-box">
-                            <div v-if="currentStep < 3">等待计算...</div>
-                            <div v-else>
+                            <div class="data-box">
+                                <div v-if="!computationStarted">点击上方按钮开始计算...</div>
+                                <div v-else>
+                                    <div class="computation-step" v-for="(step, index) in computationSteps" :key="index">
+                                        <i class="fas fa-cog fa-spin" v-if="index === currentComputationStep"></i>
+                                        <i class="fas fa-check" v-else-if="index < currentComputationStep"></i>
+                                        <i class="fas fa-ellipsis-h" v-else></i>
+                                        <span>{{ step }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div v-if="result.length > 0">
+                            <h3>交集计算结果</h3>
+                            <div class="data-box">
                                 <div class="data-item" v-for="(num, index) in result" :key="index">
                                     <span>交集数据 {{ index + 1 }}</span>
                                     <span>{{ num }}</span>
@@ -389,23 +568,38 @@
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="tee">
-                <div class="tee-title">
-                    <i class="fas fa-shield-alt"></i> 可信执行环境 (TEE)
-                </div>
-                <div class="info-box">
-                    <i class="fas fa-info-circle"></i> 在TEE中，数据被解密并执行计算，但任何人都无法从外部访问原始数据。
-                </div>
-                <div class="data-box">
-                    <div v-if="currentStep < 2">等待计算请求...</div>
-                    <div v-else>
-                        <div class="computation-step" v-for="(step, index) in computationSteps" :key="index">
-                            <i class="fas fa-cog fa-spin" v-if="index === currentComputationStep"></i>
-                            <i class="fas fa-check" v-else-if="index < currentComputationStep"></i>
-                            <i class="fas fa-ellipsis-h" v-else></i>
-                            <span>{{ step }}</span>
+				<div class="data-flow"><div class="arrow"><i class="fas fa-long-arrow-alt-left"></i></div></div>
+
+                <!-- Bob数据提供方 -->
+                <div class="data-provider">
+                    <div class="data-card">
+                        <div class="card-title">
+                            <i class="fas fa-user-circle"></i> 数据提供方 Bob
+                        </div>
+                        <div class="input-group">
+                            <label for="bob-data">输入Bob的数据（逗号分隔）</label>
+                            <input type="text" id="bob-data" v-model="bobInput" placeholder="例如: 2, 3, 5, 13" :disabled="!aliceEncodedData">
+                        </div>
+                        <button class="btn btn-primary" @click="submitBobData" :disabled="!aliceEncodedData">
+                            <i class="fas fa-shield-alt"></i> ZTDO数据封装
+                        </button>
+
+                        <div v-if="bobData.length > 0">
+                            <h3>Bob的数据集</h3>
+                            <div class="data-box">
+                                <div class="data-item" v-for="(num, index) in bobData" :key="index">
+                                    <span>数据 {{ index + 1 }}</span>
+                                    <span>{{ num }}</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div v-if="bobEncodedData">
+                            <h3>ZTDO封装数据 <span class="result-badge">已加密</span></h3>
+                            <div class="data-box">
+                                <div class="encoded-data">{{ bobEncodedData }}</div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -415,7 +609,7 @@
                 <button class="btn btn-primary" @click="prevStep" :disabled="currentStep === 1">
                     <i class="fas fa-arrow-left"></i> 上一步
                 </button>
-                <button class="btn btn-secondary" @click="nextStep" :disabled="currentStep === 3">
+                <button class="btn btn-secondary" @click="nextStep" :disabled="currentStep === 4">
                     下一步 <i class="fas fa-arrow-right"></i>
                 </button>
                 <button class="btn btn-primary" @click="resetDemo">
@@ -430,14 +624,22 @@
             el: '#app',
             data: {
                 currentStep: 1,
+                trustedAppGenerated: false,
+                appName: "",
+                appId: "",
+                deploymentTime: "",
+                appHash: "",
                 aliceInput: "",
                 bobInput: "",
                 aliceData: [],
                 bobData: [],
-                encodedData: "",
+                aliceEncodedData: "",
+                bobEncodedData: "",
                 result: [],
+                computationStarted: false,
                 computationSteps: [
-                    "接收ZTDO封装数据",
+                    "接收Alice的ZTDO封装数据",
+                    "接收Bob的ZTDO封装数据",
                     "验证数据完整性",
                     "解密数据",
                     "执行机密计算",
@@ -448,10 +650,27 @@
             },
             computed: {
                 progressWidth() {
-                    return ((this.currentStep - 1) / 2) * 100 + '%';
+                    return ((this.currentStep - 1) / 3) * 100 + '%';
                 }
             },
             methods: {
+                generateTrustedApp() {
+                    if (!this.appName) {
+                        alert("请输入应用名称");
+                    }
+
+                    // 模拟生成可信应用
+                    this.appId = crypto.randomUUID();
+                    this.deploymentTime = new Date().toLocaleString();
+                    this.appHash = this.generateHash(64);
+                    this.trustedAppGenerated = true;
+
+                    // 自动进入下一步
+                    if (this.currentStep === 1) {
+                        this.currentStep = 2;
+                    }
+                },
+
                 submitAliceData() {
                     if (!this.aliceInput) {
                         alert("请输入Alice的数据");
@@ -465,11 +684,11 @@
                         .map(Number);
 
                     // 模拟ZTDO封装过程
-                    this.encodedData = this.ztdoEncode(this.aliceData);
+                    this.aliceEncodedData = this.ztdoEncode(this.aliceData);
 
                     // 自动进入下一步
-                    if (this.currentStep === 1) {
-                        this.currentStep = 2;
+                    if (this.currentStep === 2) {
+                        this.currentStep = 3;
                     }
                 },
 
@@ -485,8 +704,13 @@
                         .filter(item => item !== "")
                         .map(Number);
 
-                    // 模拟计算过程
-                    this.simulateComputation();
+                    // 模拟ZTDO封装过程
+                    this.bobEncodedData = this.ztdoEncode(this.bobData);
+
+                    // 自动进入下一步
+                    if (this.currentStep === 3) {
+                        this.currentStep = 4;
+                    }
                 },
 
                 ztdoEncode(data) {
@@ -495,8 +719,17 @@
                     return btoa(str).match(/.{1,60}/g).join(' ');
                 },
 
-                simulateComputation() {
-                    this.currentStep = 2;
+                generateHash(length) {
+                    const chars = '0123456789abcdef';
+                    let result = '';
+                    for (let i = length; i > 0; --i) {
+                        result += chars[Math.floor(Math.random() * chars.length)];
+                    }
+                    return result;
+                },
+
+                startComputation() {
+                    this.computationStarted = true;
                     this.currentComputationStep = 0;
 
                     // 模拟计算步骤
@@ -508,15 +741,12 @@
 
                             // 计算交集
                             this.result = this.aliceData.filter(value => this.bobData.includes(value));
-
-                            // 进入结果步骤
-                            this.currentStep = 3;
                         }
                     }, 1000);
                 },
 
                 nextStep() {
-                    if (this.currentStep < 3) {
+                    if (this.currentStep < 4) {
                         this.currentStep++;
                     }
                 },
@@ -525,9 +755,16 @@
                     if (this.currentStep > 1) {
                         this.currentStep--;
 
-                        // 如果回到第二步，重置计算状态
-                        if (this.currentStep === 2) {
-                            this.currentComputationStep = 0;
+                        // 重置相关状态
+                        if (this.currentStep === 1) {
+                            this.trustedAppGenerated = false;
+                            this.aliceEncodedData = "";
+                            this.bobEncodedData = "";
+                            this.result = [];
+                        } else if (this.currentStep === 2) {
+                            this.bobEncodedData = "";
+                            this.result = [];
+                        } else if (this.currentStep === 3) {
                             this.result = [];
                         }
                     }
@@ -535,12 +772,19 @@
 
                 resetDemo() {
                     this.currentStep = 1;
+                    this.trustedAppGenerated = false;
+                    this.appName = "";
+                    this.appId = "";
+                    this.deploymentTime = "";
+                    this.appHash = "";
                     this.aliceInput = "";
                     this.bobInput = "";
                     this.aliceData = [];
                     this.bobData = [];
-                    this.encodedData = "";
+                    this.aliceEncodedData = "";
+                    this.bobEncodedData = "";
                     this.result = [];
+                    this.computationStarted = false;
                     this.currentComputationStep = 0;
                 }
             }
