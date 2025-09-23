@@ -296,7 +296,7 @@
         <div class="container">
             <header>
                 <h1>机密计算演示</h1>
-                <p class="subtitle">基于DHP+可信执行环境(TEE)进行机密计算，保护数据隐私</p>
+                <p class="subtitle">基于DHP+可信执行环境(TEE)进行机密计算，在TEE中计算数据集的交集，保护数据隐私</p>
             </header>
 
             <div class="workflow">
@@ -316,7 +316,7 @@
                 <div class="step" :class="{active: currentStep >= 3}">
                     <div class="step-number">3</div>
                     <div class="step-title">获取结果</div>
-                    <div class="step-desc">在TEE中计算并返回结果</div>
+                    <div class="step-desc">在TEE中计算数据集的交集并返回结果</div>
                 </div>
             </div>
 
@@ -374,7 +374,7 @@
                     </div>
 
                     <div>
-                        <h3>计算结果</h3>
+                        <h3>交集计算结果</h3>
                         <div class="data-box">
                             <div v-if="currentStep < 3">等待计算...</div>
                             <div v-else>
