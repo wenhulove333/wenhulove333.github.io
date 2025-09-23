@@ -83,6 +83,18 @@
             margin-bottom: 15px;
             color: #2c3e50;
         }
+        .step-desc-prefix {
+            color: #2c3e50;
+            font-weight: 600;
+            font-size: 1.0rem;
+            line-height: 1.5;
+        }
+        .step-desc-prefix.active {
+            color: #e74c3c;
+            font-weight: 800;
+            font-size: 1.0rem;
+            line-height: 1.5;
+        }
         .step-desc {
             color: #7f8c8d;
             font-size: 0.95rem;
@@ -429,22 +441,22 @@
                 <div class="step" :class="{active: currentStep >= 1}">
                     <div class="step-number">1</div>
                     <div class="step-title">部署可信应用</div>
-                    <div class="step-desc">创建并部署可信应用到TEE环境中</div>
+                    <div class="step-desc"><span class="step-desc-prefix" :class="{active: currentStep == 1}">NHP代理: </span>创建并部署可信应用到TEE环境中</div>
                 </div>
                 <div class="step" :class="{active: currentStep >= 2}">
                     <div class="step-number">2</div>
                     <div class="step-title">Alice数据封装</div>
-                    <div class="step-desc">Alice提供原始数据并进行ZTDO封装</div>
+                    <div class="step-desc"><span class="step-desc-prefix" :class="{active: currentStep == 2}">NHP数据经纪件: </span>Alice提供原始数据并进行ZTDO封装</div>
                 </div>
                 <div class="step" :class="{active: currentStep >= 3}">
                     <div class="step-number">3</div>
                     <div class="step-title">Bob数据封装</div>
-                    <div class="step-desc">Bob提供原始数据并进行ZTDO封装</div>
+                    <div class="step-desc"><span class="step-desc-prefix" :class="{active: currentStep == 3}">NHP数据经纪件: </span>Bob提供原始数据并进行ZTDO封装</div>
                 </div>
                 <div class="step" :class="{active: currentStep >= 4}">
                     <div class="step-number">4</div>
                     <div class="step-title">联合计算</div>
-                    <div class="step-desc">在TEE中进行联合计算并返回结果</div>
+                    <div class="step-desc"><span class="step-desc-prefix" :class="{active: currentStep == 4}">NHP代理: </span>在TEE中进行联合计算并返回结果</div>
                 </div>
             </div>
 
@@ -452,7 +464,7 @@
             <div class="app-generation">
                 <div class="app-card">
                     <div class="card-title">
-                        <i class="fas fa-cube"></i> 部署可信应用
+                        <i class="fas fa-cube"></i> 可信应用Trust App
                     </div>
                     <div class="input-group">
                         <label for="app-name">应用名称</label>
@@ -629,12 +641,12 @@
             data: {
                 currentStep: 1,
                 trustedAppGenerated: false,
-                appName: "",
+                appName: "INTERSECT(SetA, SetB)",
                 appId: "",
                 deploymentTime: "",
                 appHash: "",
-                aliceInput: "",
-                bobInput: "",
+                aliceInput: "1,3,5,7,11",
+                bobInput: "2,3,5,13",
                 aliceData: [],
                 bobData: [],
                 aliceEncodedData: "",
