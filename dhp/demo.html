@@ -428,7 +428,7 @@
                 </div>
                 <div class="step" :class="{active: currentStep >= 1}">
                     <div class="step-number">1</div>
-                    <div class="step-title">生成可信应用</div>
+                    <div class="step-title">部署可信应用</div>
                     <div class="step-desc">创建并部署可信应用到TEE环境中</div>
                 </div>
                 <div class="step" :class="{active: currentStep >= 2}">
@@ -452,14 +452,14 @@
             <div class="app-generation">
                 <div class="app-card">
                     <div class="card-title">
-                        <i class="fas fa-cube"></i> 可信应用生成
+                        <i class="fas fa-cube"></i> 部署可信应用
                     </div>
                     <div class="input-group">
                         <label for="app-name">应用名称</label>
                         <input type="text" id="app-name" v-model="appName" placeholder="例如: 隐私求交应用">
                     </div>
                     <button class="btn btn-success" @click="generateTrustedApp">
-                        <i class="fas fa-cogs"></i> 生成可信应用
+                        <i class="fas fa-cogs"></i> 部署可信应用
                     </button>
 
                     <div v-if="trustedAppGenerated">
