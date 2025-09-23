@@ -666,7 +666,11 @@
             },
             computed: {
                 progressWidth() {
-                    return ((this.currentStep - 1) / 3) * 100 + '%';
+                    if (this.currentStep >= 4) {
+                        return '100%';
+                    } else {
+                        return ((this.currentStep - 1) / 3) * 100 + '%';
+                    }
                 }
             },
             methods: {
@@ -747,6 +751,7 @@
                 startComputation() {
                     this.computationStarted = true;
                     this.currentComputationStep = 0;
+                    this.currentStep++;
 
                     // 模拟计算步骤
                     const interval = setInterval(() => {
