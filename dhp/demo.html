@@ -310,8 +310,8 @@
                 </div>
                 <div class="step" :class="{active: currentStep >= 2}">
                     <div class="step-number">2</div>
-                    <div class="step-title">安全计算</div>
-                    <div class="step-desc">Bob调用可信应用执行安全计算</div>
+                    <div class="step-title">机密计算</div>
+                    <div class="step-desc">Bob调用可信应用执行机密计算</div>
                 </div>
                 <div class="step" :class="{active: currentStep >= 3}">
                     <div class="step-number">3</div>
@@ -360,7 +360,7 @@
                         <input type="text" id="bob-data" v-model="bobInput" placeholder="例如: 3, 5, 9, 11, 13">
                     </div>
                     <button class="btn btn-secondary" @click="submitBobData" :disabled="!encodedData">
-                        <i class="fas fa-calculator"></i> 安全计算请求
+                        <i class="fas fa-calculator"></i> 机密计算请求
                     </button>
 
                     <div v-if="bobData.length > 0">
@@ -440,7 +440,7 @@
                     "接收ZTDO封装数据",
                     "验证数据完整性",
                     "解密数据",
-                    "执行安全计算",
+                    "执行机密计算",
                     "审核计算结果",
                     "返回安全结果"
                 ],
