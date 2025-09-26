@@ -806,16 +806,16 @@
                                     <div class="key-pair-title">{{ title }}</div>
                                     <div class="key-item"
                                         :class="{
-                                            'highlight-red': isAliceEncrypting && (title === '数据对象密钥对') ||
-                                                            isAliceKAOEncrypting && (title === 'TEE密钥对') ||
-                                                            isAliceKAOEncrypting && (title === '临时会话密钥对') ||
+                                            'highlight-red': currentEncryptStep === 2 && (title === '数据对象密钥对') ||
+                                                            currentEncryptStep === 1 && (title === 'TEE密钥对') ||
+                                                            currentEncryptStep === 1 && (title === '临时会话密钥对') ||
                                                             currentDhpStep === 1 && (title === '数据提供方密钥对') ||
                                                             currentDhpStep === 2 && (title === '数据提供方密钥对')
                                         }">公钥: {{ pair.publicKey }}</div>
                                     <div class="key-item"
                                         :class="{
-                                            'highlight-red': isAliceEncrypting && (title === '数据提供方密钥对') ||
-                                                             isAliceKAOEncrypting && (title === '数据提供方密钥对') ||
+                                            'highlight-red': currentEncryptStep === 2 && (title === '数据提供方密钥对') ||
+                                                             currentEncryptStep === 1 && (title === '数据提供方密钥对') ||
                                                              currentDhpStep === 1 && (title === 'TEE密钥对') ||
                                                              currentDhpStep === 1 && (title === '临时会话密钥对') ||
                                                              currentDhpStep === 2 && (title === '数据对象密钥对')
@@ -967,16 +967,16 @@
                                     <div class="key-pair-title">{{ title }}</div>
                                     <div class="key-item"
                                         :class="{
-                                            'highlight-red': isBobEncrypting && (title === '数据对象密钥对') ||
-                                                            isBobKAOEncrypting && (title === 'TEE密钥对') ||
-                                                            isBobKAOEncrypting && (title === '临时会话密钥对') ||
+                                            'highlight-red': currentEncryptStep === 4 && (title === '数据对象密钥对') ||
+                                                            currentEncryptStep === 3 && (title === 'TEE密钥对') ||
+                                                            currentEncryptStep === 3 && (title === '临时会话密钥对') ||
                                                             currentDhpStep === 3 && (title === '数据提供方密钥对') ||
                                                             currentDhpStep === 4 && (title === '数据提供方密钥对')
                                         }">公钥: {{ pair.publicKey }}</div>
                                     <div class="key-item"
                                         :class="{
-                                            'highlight-red': isBobEncrypting && (title === '数据提供方密钥对') ||
-                                                             isBobKAOEncrypting && (title === '数据提供方密钥对') ||
+                                            'highlight-red': currentEncryptStep === 4 && (title === '数据提供方密钥对') ||
+                                                             currentEncryptStep === 3 && (title === '数据提供方密钥对') ||
                                                              currentDhpStep === 3 && (title === 'TEE密钥对') ||
                                                              currentDhpStep === 3 && (title === '临时会话密钥对') ||
                                                              currentDhpStep === 4 && (title === '数据对象密钥对')
@@ -1098,6 +1098,7 @@
                     this.aliceKeyPairs = this.generateKeyPairs();
 
                     // 开始Alice数据对象私钥封装
+                    this.currentEncryptStep++;
                     this.isAliceKAOEncrypting = true;
                     const kaoProcess = setInterval(() => {
                         clearInterval(kaoProcess);
@@ -1125,8 +1126,9 @@
                         .filter(item => item !== "")
                         .map(Number);
 
-                    // 开始加密动画
+                    // 开始加密Alice ZTDO数据封装
                     this.isAliceEncrypting = true;
+                    this.currentEncryptStep++;
 
                     // 模拟加密过程
                     const encryptionProcess = setInterval(() => {
@@ -1143,6 +1145,7 @@
 
                         // 开始Bob数据对象私钥封装
                         this.isBobKAOEncrypting = true;
+                        this.currentEncryptStep++;
                         const kaoProcess = setInterval(() => {
                             clearInterval(kaoProcess);
 
@@ -1170,8 +1173,9 @@
                         .filter(item => item !== "")
                         .map(Number);
 
-                    // 开始加密动画
+                    // 开始加密Bob ZTDO数据封装
                     this.isBobEncrypting = true;
+                    this.currentEncryptStep++;
 
                     // 模拟加密过程
                     const encryptionProcess = setInterval(() => {
@@ -1352,6 +1356,10 @@
                 },
 
                 async nextDhpStep() {
+                    if (this.currentDhpStep === 0) {
+                        this.currentEncryptStep++;
+                    }
+
                     if (this.currentDhpStep < this.dhpSteps.length && !this.isDhpProcessing) {
                         // 处理当前DHP步骤
                         this.currentDhpStep++;
@@ -1391,7 +1399,7 @@
                             this.bobKeyPairs = {};
                         } else if (this.currentStep === 3) {
                             this.bobEncodedData = "";
-                            this.currentEncryptStep--;
+                            this.currentEncryptStep -= 2;
                             this.result = [];
                         }
                     }
