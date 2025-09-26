@@ -401,6 +401,262 @@
 		  animation: pulse 2s infinite;
 		}
 
+        /* 新增样式 */
+        .trusted-app-box {
+            background: #2ecc71;
+            color: white;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 15px 0;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .ztdo-container {
+            display: flex;
+            justify-content: space-between;
+            gap: 15px;
+            margin: 15px 0;
+        }
+
+        .ztdo-box {
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            font-weight: bold;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 80px;
+        }
+
+        .ztdo-alice {
+            background: rgba(52, 152, 219, 0.8);
+            color: white;
+        }
+
+        .ztdo-bob {
+            background: rgba(39, 83, 239, 0.8);
+            color: white;
+        }
+
+        .key-item {
+            padding: 8px;
+            margin: 5px 0;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 5px;
+            font-family: monospace;
+            font-size: 0.9rem;
+            text-align: left;
+        }
+
+        .dhp-step-btn {
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        .note {
+            font-size: 0.8rem;
+            color: #95a5a6;
+            margin-top: 20px;
+            text-align: center;
+            font-style: italic;
+        }
+
+        .key-pair {
+            margin: 10px 0;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .key-pair-title {
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #3498db;
+        }
+
+        /* 新增的ZTDO封装动画样式 */
+        .encryption-animation {
+            position: relative;
+            margin: 20px 0;
+            padding: 15px;
+            background: rgba(52, 152, 219, 0.1);
+            border-radius: 10px;
+            min-height: 200px;
+        }
+
+        .encryption-step {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            padding: 15px;
+        }
+
+        .encryption-step.active {
+            opacity: 1;
+        }
+
+        .key-visualization {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 15px 0;
+            width: 100%;
+        }
+
+        .key-item-visual {
+            padding: 10px 15px;
+            margin: 0 10px;
+            background: #3498db;
+            color: white;
+            border-radius: 8px;
+            font-weight: bold;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            animation: pulse 2s infinite;
+        }
+
+        .key-combination {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+        }
+
+        .plus-sign {
+            margin: 0 15px;
+            font-size: 1.5rem;
+            color: #2c3e50;
+        }
+
+        .symmetric-key {
+            padding: 12px 20px;
+            background: #e74c3c;
+            color: white;
+            border-radius: 8px;
+            font-weight: bold;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            animation: pulse 1.5s infinite;
+        }
+
+        .data-to-encrypt {
+            padding: 12px 20px;
+            background: #2ecc71;
+            color: white;
+            border-radius: 8px;
+            font-weight: bold;
+            margin: 15px 0;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .encrypted-data {
+            padding: 12px 20px;
+            background: #9b59b6;
+            color: white;
+            border-radius: 8px;
+            font-weight: bold;
+            margin: 15px 0;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            animation: highlight 2s ease;
+        }
+
+        .arrow-down {
+            font-size: 2rem;
+            color: #3498db;
+            margin: 10px 0;
+        }
+
+        /* 新增的红框高亮样式 */
+        .highlight-red {
+            animation: highlight-red 1.5s ease-in-out infinite alternate;
+            border: 3px solid #e74c3c;
+            box-shadow: 0 0 15px rgba(231, 76, 60, 0.5);
+        }
+
+        @keyframes highlight-red {
+            0% { border-color: #e74c3c; box-shadow: 0 0 10px rgba(231, 76, 60, 0.5); }
+            100% { border-color: #ff6b6b; box-shadow: 0 0 20px rgba(231, 76, 60, 0.8); }
+        }
+
+        .encryption-flow {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+
+        .flow-item {
+            margin: 10px;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: bold;
+            position: relative;
+        }
+
+        .flow-arrow {
+            font-size: 2rem;
+            color: #3498db;
+            margin: 0 10px;
+        }
+
+        .key-pair-flow {
+            background: #3498db;
+            color: white;
+            min-width: 150px;
+        }
+
+        .symmetric-key-flow {
+            background: #e74c3c;
+            color: white;
+            min-width: 120px;
+        }
+
+        .original-data-flow {
+            background: #2ecc71;
+            color: white;
+            min-width: 120px;
+        }
+
+        .encrypted-data-flow {
+            background: #9b59b6;
+            color: white;
+            min-width: 150px;
+        }
+
+        .flow-label {
+            font-size: 0.8rem;
+            margin-top: 5px;
+            opacity: 0.9;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes moveRight {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(100px); }
+        }
+
+        @keyframes moveLeft {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-100px); }
+        }
+
         @media (max-width: 1200px) {
             .computation-layout {
                 flex-direction: column;
@@ -410,6 +666,16 @@
             }
             .app-card {
                 width: 80%;
+            }
+            .ztdo-container {
+                flex-direction: column;
+            }
+            .encryption-flow {
+                flex-direction: column;
+            }
+            .flow-arrow {
+                transform: rotate(90deg);
+                margin: 10px 0;
             }
         }
         @media (max-width: 768px) {
@@ -422,6 +688,12 @@
             }
             .app-card {
                 width: 100%;
+            }
+            .key-visualization {
+                flex-direction: column;
+            }
+            .key-item-visual {
+                margin: 5px 0;
             }
         }
     </style>
@@ -508,23 +780,57 @@
                         </div>
                         <div class="input-group">
                             <label for="alice-data">输入原始数据（逗号分隔）</label>
-                            <input type="text" id="alice-data" v-model="aliceInput" placeholder="例如: 1, 3, 5, 7, 11" :disabled="!trustedAppGenerated">
+                            <input type="text" id="alice-data" v-model="aliceInput" placeholder="例如: 1, 3, 5, 7, 11" :disabled="!trustedAppGenerated || isAliceEncrypting">
                         </div>
-                        <button class="btn btn-primary" @click="submitAliceData" :disabled="!trustedAppGenerated">
-                            <i class="fas fa-shield-alt"></i> ZTDO数据封装
+                        <button class="btn btn-primary" @click="submitAliceData" :disabled="isAliceKAOEncrypting || isAliceEncrypting">
+                            <i class="fas fa-shield-alt"></i>
+                            <span v-if="isAliceEncrypting">加密中...</span>
+                            <span v-else>ZTDO数据封装</span>
                         </button>
 
-                        <div v-if="aliceData.length > 0">
-                            <h3>原始数据集</h3>
+                        <!-- 初始化时就显示的密钥对 -->
+                        <div v-if="trustedAppGenerated">
                             <div class="data-box">
-                                <div class="data-item" v-for="(num, index) in aliceData" :key="index">
-                                    <span>数据 {{ index + 1 }}</span>
-                                    <span>{{ num }}</span>
+                                <div v-for="(pair, title) in aliceKeyPairs" :key="title"
+                                     class="key-pair">
+                                    <div class="key-pair-title">{{ title }}</div>
+                                    <div class="key-item"
+                                        :class="{
+                                            'highlight-red': isAliceEncrypting && (title === '数据对象密钥对') ||
+                                                            isAliceKAOEncrypting && (title === 'TEE密钥对') ||
+                                                            isAliceKAOEncrypting && (title === '临时会话密钥对')
+                                        }">公钥: {{ pair.publicKey }}</div>
+                                    <div class="key-item"
+                                        :class="{
+                                            'highlight-red': isAliceEncrypting && (title === '数据提供方密钥对') ||
+                                                             isAliceKAOEncrypting && (title === '数据提供方密钥对')
+                                        }">私钥: {{ pair.privateKey }}</div>
                                 </div>
                             </div>
                         </div>
 
-                        <div v-if="aliceEncodedData">
+                        <div v-if="isAliceKAOEncrypting">
+                            <h3>数据对象私钥封装 <span class="result-badge">封装中...</span></h3>
+                            <div class="data-box">
+                                <div class="encoded-data">使用数据对象提供方的私钥、TEE的公钥和临时公钥生成对称密钥，然后使用对称密钥对数据对象私钥进行加密封装</div>
+                            </div>
+                        </div>
+
+                        <div v-if="aliceEncodedKAO && !isAliceKAOEncrypting">
+                            <h3>数据对象私钥封装 <span class="result-badge">已封装</span></h3>
+                            <div class="data-box">
+                                <div class="encoded-data">{{ aliceEncodedKAO }}</div>
+                            </div>
+                        </div>
+
+                        <div v-if="isAliceEncrypting">
+                            <h3>ZTDO封装数据 <span class="result-badge">加密中...</span></h3>
+                            <div class="data-box">
+                                <div class="encoded-data">使用数据对象提供方的私钥和数据对象的私钥生成对称密钥，然后使用对称密钥对数据对象的原始数据进行加密</div>
+                            </div>
+                        </div>
+
+                        <div v-if="aliceEncodedData && !isAliceEncrypting">
                             <h3>ZTDO封装数据 <span class="result-badge">已加密</span></h3>
                             <div class="data-box">
                                 <div class="encoded-data">{{ aliceEncodedData }}</div>
@@ -541,6 +847,25 @@
                         <div class="card-title">
                             <i class="fas fa-shield-alt"></i> 可信执行环境 (TEE)
                         </div>
+
+                        <!-- 可信应用框 -->
+                        <div v-if="trustedAppGenerated" class="trusted-app-box">
+                            <i class="fas fa-cube"></i> 可信应用 {{ appId }}
+                        </div>
+
+                        <!-- ZTDO数据容器 - 将Alice和Bob的ZTDO数据放在同一行 -->
+                        <div class="ztdo-container" v-if="aliceEncodedData || bobEncodedData">
+                            <!-- Alice ZTDO框 -->
+                            <div v-if="aliceEncodedData" class="ztdo-box ztdo-alice">
+                                <i class="fas fa-lock"></i> Alice ZTDO数据
+                            </div>
+
+                            <!-- Bob ZTDO框 -->
+                            <div v-if="bobEncodedData" class="ztdo-box ztdo-bob">
+                                <i class="fas fa-lock"></i> Bob ZTDO数据
+                            </div>
+                        </div>
+
                         <div class="info-box">
                             <i class="fas fa-info-circle"></i> 在TEE中，数据被解密并执行计算，但任何人都无法从外部访问原始数据。
                         </div>
@@ -553,16 +878,19 @@
                             </div>
                         </div>
                         <div v-else>
-                            <button class="btn btn-secondary" @click="startComputation" :disabled="computationStarted">
-                                <i class="fas fa-calculator"></i> 开始联合计算
+                            <button class="btn btn-secondary dhp-step-btn" @click="nextDhpStep" :disabled="dhpStepCompleted || isDhpProcessing">
+                                <i class="fas fa-forward"></i>
+                                <span v-if="isDhpProcessing">处理中...</span>
+                                <span v-else>DHP协议下一步</span>
                             </button>
 
                             <div class="data-box">
-                                <div v-if="!computationStarted">点击上方按钮开始计算...</div>
+                                <div v-if="currentDhpStep === 0">点击上方按钮开始DHP协议流程...</div>
                                 <div v-else>
-                                    <div class="computation-step" v-for="(step, index) in computationSteps" :key="index">
-                                        <i class="fas fa-cog fa-spin" v-if="index === currentComputationStep"></i>
-                                        <i class="fas fa-check" v-else-if="index < currentComputationStep"></i>
+                                    <div class="computation-step" v-for="(step, index) in dhpSteps" :key="index"
+                                         :class="{highlight: index === currentDhpStep - 1}">
+                                        <i class="fas fa-cog fa-spin" v-if="index === currentDhpStep - 1 && !dhpStepCompleted && !isCurrentStepComplete"></i>
+                                        <i class="fas fa-check" v-else-if="(isCurrentStepComplete && index === (currentDhpStep - 1)) || index < currentDhpStep || (dhpStepCompleted && index < dhpSteps.length)"></i>
                                         <i class="fas fa-ellipsis-h" v-else></i>
                                         <span>{{ step }}</span>
                                     </div>
@@ -571,7 +899,7 @@
                         </div>
 
                         <div v-if="result.length > 0">
-                            <h3>交集计算结果</h3>
+                            <h3>交集计算结果 <span class="success-badge">安全返回</span></h3>
                             <div class="data-box">
                                 <div class="data-item" v-for="(num, index) in result" :key="index">
                                     <span>交集数据 {{ index + 1 }}</span>
@@ -595,23 +923,57 @@
                         </div>
                         <div class="input-group">
                             <label for="bob-data">输入原始数据（逗号分隔）</label>
-                            <input type="text" id="bob-data" v-model="bobInput" placeholder="例如: 2, 3, 5, 13" :disabled="!aliceEncodedData">
+                            <input type="text" id="bob-data" v-model="bobInput" placeholder="例如: 2, 3, 5, 13" :disabled="!aliceEncodedData || isBobEncrypting">
                         </div>
-                        <button class="btn btn-primary" @click="submitBobData" :disabled="!aliceEncodedData">
-                            <i class="fas fa-shield-alt"></i> ZTDO数据封装
+                        <button class="btn btn-primary" @click="submitBobData" :disabled="!aliceEncodedData || isBobEncrypting || isBobKAOEncrypting">
+                            <i class="fas fa-shield-alt"></i>
+                            <span v-if="isBobEncrypting">加密中...</span>
+                            <span v-else>ZTDO数据封装</span>
                         </button>
 
-                        <div v-if="bobData.length > 0">
-                            <h3>原始数据集</h3>
+                        <!-- 初始化时就显示的密钥对 -->
+                        <div v-if="aliceEncodedData">
                             <div class="data-box">
-                                <div class="data-item" v-for="(num, index) in bobData" :key="index">
-                                    <span>数据 {{ index + 1 }}</span>
-                                    <span>{{ num }}</span>
+                                <div v-for="(pair, title) in bobKeyPairs" :key="title"
+                                     class="key-pair">
+                                    <div class="key-pair-title">{{ title }}</div>
+                                    <div class="key-item"
+                                        :class="{
+                                            'highlight-red': isBobEncrypting && (title === '数据对象密钥对') ||
+                                                            isBobKAOEncrypting && (title === 'TEE密钥对') ||
+                                                            isBobKAOEncrypting && (title === '临时会话密钥对')
+                                        }">公钥: {{ pair.publicKey }}</div>
+                                    <div class="key-item"
+                                        :class="{
+                                            'highlight-red': isBobEncrypting && (title === '数据提供方密钥对') ||
+                                                             isBobKAOEncrypting && (title === '数据提供方密钥对')
+                                        }">私钥: {{ pair.privateKey }}</div>
                                 </div>
                             </div>
                         </div>
 
-                        <div v-if="bobEncodedData">
+                        <div v-if="isBobKAOEncrypting">
+                            <h3>数据对象私钥封装 <span class="result-badge">封装中...</span></h3>
+                            <div class="data-box">
+                                <div class="encoded-data">使用数据对象提供方的私钥、TEE的公钥和临时公钥生成对称密钥，然后使用对称密钥对数据对象私钥进行加密封装</div>
+                            </div>
+                        </div>
+
+                        <div v-if="bobEncodedKAO && !isBobKAOEncrypting">
+                            <h3>数据对象私钥封装 <span class="result-badge">已封装</span></h3>
+                            <div class="data-box">
+                                <div class="encoded-data">{{ bobEncodedKAO }}</div>
+                            </div>
+                        </div>
+
+                        <div v-if="isBobEncrypting">
+                            <h3>ZTDO封装数据 <span class="result-badge">加密中...</span></h3>
+                            <div class="data-box">
+                                <div class="encoded-data">使用数据对象提供方的私钥和数据对象的私钥生成对称密钥，然后使用对称密钥对数据对象的原始数据进行加密</div>
+                            </div>
+                        </div>
+
+                        <div v-if="bobEncodedData && !isBobEncrypting">
                             <h3>ZTDO封装数据 <span class="result-badge">已加密</span></h3>
                             <div class="data-box">
                                 <div class="encoded-data">{{ bobEncodedData }}</div>
@@ -619,6 +981,10 @@
                         </div>
                     </div>
                 </div>
+            </div>
+
+            <div class="note">
+                注意：在实际系统中，ZTDO封装密钥是严格保密的，此演示页面仅用于展示技术原理。
             </div>
 
             <div class="controls">
@@ -651,18 +1017,30 @@
                 bobData: [],
                 aliceEncodedData: "",
                 bobEncodedData: "",
+                aliceEncodedKAO: "",
+                bobEncodedKAO: "",
+                // 初始化时就生成密钥对
+                aliceKeyPairs: {},
+                bobKeyPairs: {},
                 result: [],
-                computationStarted: false,
-                computationSteps: [
-                    "接收Alice的ZTDO封装数据",
-                    "接收Bob的ZTDO封装数据",
-                    "验证数据完整性",
-                    "解密数据",
-                    "执行机密计算",
+                currentDhpStep: 0,
+                dhpStepCompleted: false,
+                isDhpProcessing: false,
+                dhpSteps: [
+                    "解封Alice数据对象私钥封装",
+                    "解密Alice ZTDO数据封装",
+                    "解封Bob数据对象私钥封装",
+                    "解密Bob ZTDO数据封装",
+                    "调用可信应用执行机密计算",
                     "审核计算结果",
                     "返回安全结果"
                 ],
-                currentComputationStep: 0
+                // 新增的加密动画状态
+                isAliceEncrypting: false,
+                isBobEncrypting: false,
+                isAliceKAOEncrypting: false,
+                isBobKAOEncrypting: false,
+                isCurrentStepComplete: false,
             },
             computed: {
                 progressWidth() {
@@ -685,6 +1063,19 @@
                     this.appHash = this.generateHash(64);
                     this.trustedAppGenerated = true;
 
+                    // 初始化Alice的密钥对
+                    this.aliceKeyPairs = this.generateKeyPairs();
+
+                    // 开始Alice数据对象私钥封装
+                    this.isAliceKAOEncrypting = true;
+                    const kaoProcess = setInterval(() => {
+                        clearInterval(kaoProcess);
+
+                        this.aliceEncodedKAO = this.encryptDataObjectPrivateKey();
+
+                        this.isAliceKAOEncrypting = false;
+                    }, 3000)
+
                     // 自动进入下一步
                     if (this.currentStep === 1) {
                         this.currentStep = 2;
@@ -703,13 +1094,37 @@
                         .filter(item => item !== "")
                         .map(Number);
 
-                    // 模拟ZTDO封装过程
-                    this.aliceEncodedData = this.ztdoEncode(this.aliceData);
+                    // 开始加密动画
+                    this.isAliceEncrypting = true;
 
-                    // 自动进入下一步
-                    if (this.currentStep === 2) {
-                        this.currentStep = 3;
-                    }
+                    // 模拟加密过程
+                    const encryptionProcess = setInterval(() => {
+                        clearInterval(encryptionProcess);
+
+                        // 模拟ZTDO封装过程
+                        this.aliceEncodedData = this.ztdoEncode(this.aliceData);
+
+                        // 完成加密
+                        this.isAliceEncrypting = false;
+
+                        // 初始化Bob的密钥对（在Alice加密完成后）
+                        this.bobKeyPairs = this.generateKeyPairs();
+
+                        // 开始Bob数据对象私钥封装
+                        this.isBobKAOEncrypting = true;
+                        const kaoProcess = setInterval(() => {
+                            clearInterval(kaoProcess);
+
+                            this.bobEncodedKAO = this.encryptDataObjectPrivateKey();
+
+                            this.isBobKAOEncrypting = false;
+                        }, 3000)
+
+                        // 自动进入下一步
+                        if (this.currentStep === 2) {
+                            this.currentStep = 3;
+                        }
+                    }, 3000);
                 },
 
                 submitBobData() {
@@ -724,19 +1139,62 @@
                         .filter(item => item !== "")
                         .map(Number);
 
-                    // 模拟ZTDO封装过程
-                    this.bobEncodedData = this.ztdoEncode(this.bobData);
+                    // 开始加密动画
+                    this.isBobEncrypting = true;
 
-                    // 自动进入下一步
-                    if (this.currentStep === 3) {
-                        this.currentStep = 4;
-                    }
+                    // 模拟加密过程
+                    const encryptionProcess = setInterval(() => {
+
+                        clearInterval(encryptionProcess);
+
+                        // 模拟ZTDO封装过程
+                        this.bobEncodedData = this.ztdoEncode(this.bobData);
+
+                        // 完成加密
+                        this.isBobEncrypting = false;
+
+                        // 自动进入下一步
+                        if (this.currentStep === 3) {
+                            this.currentStep = 4;
+                        }
+                    }, 3000);
                 },
 
                 ztdoEncode(data) {
                     // 模拟ZTDO封装过程（实际应用中会使用加密算法）
                     const str = data.join(',');
                     return btoa(str).match(/.{1,60}/g).join(' ');
+                },
+
+                encryptDataObjectPrivateKey() {
+                    // 模拟数据对象私钥封装过程（实际应用中会使用加密算法）
+                    return this.generateHash(32);
+                },
+
+                generateKeyPairs() {
+                    // 生成5对演示密钥对，使用字典格式
+                    return {
+                        "数据提供方密钥对": {
+                            publicKey: this.generateHash(32),
+                            privateKey: this.generateHash(32)
+                        },
+                        "数据对象密钥对": {
+                            publicKey: this.generateHash(32),
+                            privateKey: this.generateHash(32)
+                        },
+                        "NHP代理密钥对（用于DHP消息）": {
+                            publicKey: this.generateHash(32),
+                            privateKey: this.generateHash(32)
+                        },
+                        "TEE密钥对": {
+                            publicKey: this.generateHash(32),
+                            privateKey: this.generateHash(32)
+                        },
+                        "临时会话密钥对": {
+                            publicKey: this.generateHash(32),
+                            privateKey: this.generateHash(32)
+                        }
+                    };
                 },
 
                 generateHash(length) {
@@ -748,22 +1206,133 @@
                     return result;
                 },
 
-                startComputation() {
-                    this.computationStarted = true;
-                    this.currentComputationStep = 0;
-                    this.currentStep++;
+                // DHP协议步骤处理函数
+                async processDhpStep(stepIndex) {
+                    this.isDhpProcessing = true;
+                    this.isCurrentStepComplete = false
 
-                    // 模拟计算步骤
-                    const interval = setInterval(() => {
-                        this.currentComputationStep++;
+                    // 根据步骤索引调用相应的处理函数
+                    switch(stepIndex) {
+                        case 0: // 解封Alice数据对象私钥封装
+                            await this.unsealAliceKAO();
+                            break;
+                        case 1: // 解密Alice ZTDO数据封装
+                            await this.decryptAliceZTDO();
+                            break;
+                        case 2: // 解封Bob数据对象私钥封装
+                            await this.unsealBobKAO();
+                            break;
+                        case 3: // 解密Bob ZTDO数据封装
+                            await this.decryptBobZTDO();
+                            break;
+                        case 4: // 调用可信应用执行机密计算
+                            await this.executeTrustedApp();
+                            break;
+                        case 5: // 审核计算结果
+                            await this.auditResult();
+                            break;
+                        case 6: // 返回安全结果
+                            await this.returnSecureResult();
+                            break;
+                    }
 
-                        if (this.currentComputationStep >= this.computationSteps.length) {
-                            clearInterval(interval);
+                    this.isDhpProcessing = false;
+                    this.isCurrentStepComplete = true
+                },
 
-                            // 计算交集
+                // 解封Alice数据对象私钥封装
+                async unsealAliceKAO() {
+                    console.log("开始解封Alice数据对象私钥封装...");
+                    // 模拟处理延迟
+                    await this.delay(1500);
+
+                    // 这里可以添加实际的解封逻辑
+                    // 例如：使用TEE私钥和临时私钥解封KAO
+                    console.log("Alice数据对象私钥解封完成");
+                },
+
+                // 解密Alice ZTDO数据封装
+                async decryptAliceZTDO() {
+                    console.log("开始解密Alice ZTDO数据封装...");
+                    // 模拟处理延迟
+                    await this.delay(2000);
+
+                    // 这里可以添加实际的解密逻辑
+                    // 例如：使用解封后的数据对象私钥解密ZTDO数据
+                    console.log("Alice ZTDO数据解密完成");
+                },
+
+                // 解封Bob数据对象私钥封装
+                async unsealBobKAO() {
+                    console.log("开始解封Bob数据对象私钥封装...");
+                    // 模拟处理延迟
+                    await this.delay(1500);
+
+                    // 这里可以添加实际的解封逻辑
+                    console.log("Bob数据对象私钥解封完成");
+                },
+
+                // 解密Bob ZTDO数据封装
+                async decryptBobZTDO() {
+                    console.log("开始解密Bob ZTDO数据封装...");
+                    // 模拟处理延迟
+                    await this.delay(2000);
+
+                    // 这里可以添加实际的解密逻辑
+                    console.log("Bob ZTDO数据解密完成");
+                },
+
+                // 调用可信应用执行机密计算
+                async executeTrustedApp() {
+                    console.log("开始调用可信应用执行机密计算...");
+                    // 模拟处理延迟
+                    await this.delay(2500);
+
+                    // 这里可以添加实际的计算逻辑
+                    // 例如：在TEE中计算数据交集
+                    console.log("机密计算执行完成");
+                },
+
+                // 审核计算结果
+                async auditResult() {
+                    console.log("开始审核计算结果...");
+                    // 模拟处理延迟
+                    await this.delay(1000);
+
+                    // 这里可以添加实际的审核逻辑
+                    // 例如：验证计算结果的完整性和正确性
+                    console.log("计算结果审核完成");
+                },
+
+                // 返回安全结果
+                async returnSecureResult() {
+                    console.log("开始返回安全结果...");
+                    // 模拟处理延迟
+                    await this.delay(800);
+
+                    // 这里可以添加实际的结果返回逻辑
+                    // 例如：对结果进行加密或安全传输处理
+                    console.log("安全结果返回完成");
+                },
+
+                // 通用延迟函数
+                delay(ms) {
+                    return new Promise(resolve => setTimeout(resolve, ms));
+                },
+
+                async nextDhpStep() {
+                    if (this.currentDhpStep < this.dhpSteps.length && !this.isDhpProcessing) {
+                        // 处理当前DHP步骤
+                        this.currentDhpStep++;
+
+                        await this.processDhpStep(this.currentDhpStep);
+
+                        // 如果是最后一步，计算交集并标记所有步骤完成
+                        if (this.currentDhpStep === this.dhpSteps.length) {
+                            this.dhpStepCompleted = true;
                             this.result = this.aliceData.filter(value => this.bobData.includes(value));
                         }
-                    }, 1000);
+                    }
                 },
 
                 nextStep() {
@@ -775,15 +1344,21 @@
                 prevStep() {
                     if (this.currentStep > 1) {
                         this.currentStep--;
+                        this.currentDhpStep = 0;
+                        this.dhpStepCompleted = false;
+                        this.isDhpProcessing = false;
 
                         // 重置相关状态
                         if (this.currentStep === 1) {
                             this.trustedAppGenerated = false;
                             this.aliceEncodedData = "";
                             this.bobEncodedData = "";
+                            this.aliceKeyPairs = {};
+                            this.bobKeyPairs = {};
                             this.result = [];
                         } else if (this.currentStep === 2) {
                             this.bobEncodedData = "";
+                            this.bobKeyPairs = {};
                             this.result = [];
                         } else if (this.currentStep === 3) {
                             this.result = [];
@@ -804,9 +1379,17 @@
                     this.bobData = [];
                     this.aliceEncodedData = "";
                     this.bobEncodedData = "";
+                    this.aliceKeyPairs = {};
+                    this.bobKeyPairs = {};
                     this.result = [];
-                    this.computationStarted = false;
-                    this.currentComputationStep = 0;
+                    this.currentDhpStep = 0;
+                    this.dhpStepCompleted = false;
+                    this.isDhpProcessing = false;
+                    this.isAliceEncrypting = false;
+                    this.isBobEncrypting = false;
+                    this.aliceEncodedKAO = "";
+                    this.bobEncodedKAO = "";
+
                 }
             }
         });
