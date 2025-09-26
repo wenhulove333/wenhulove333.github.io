@@ -1024,9 +1024,6 @@
                 <button class="btn btn-primary" @click="prevStep" :disabled="currentStep === 1">
                     <i class="fas fa-arrow-left"></i> 上一步
                 </button>
-                <button class="btn btn-secondary" @click="nextStep" :disabled="currentStep === 4">
-                    下一步 <i class="fas fa-arrow-right"></i>
-                </button>
                 <button class="btn btn-primary" @click="resetDemo">
                     <i class="fas fa-sync"></i> 重新开始
                 </button>
@@ -1057,6 +1054,7 @@
                 bobKeyPairs: {},
                 result: [],
                 currentDhpStep: 0,
+                currentEncryptStep: 0,
                 dhpStepCompleted: false,
                 isDhpProcessing: false,
                 dhpSteps: [
@@ -1384,16 +1382,16 @@
                         // 重置相关状态
                         if (this.currentStep === 1) {
                             this.trustedAppGenerated = false;
-                            this.aliceEncodedData = "";
-                            this.bobEncodedData = "";
-                            this.aliceKeyPairs = {};
-                            this.bobKeyPairs = {};
-                            this.result = [];
+                            this.aliceEncodedKAO = "";
+                            this.currentEncryptStep = 0;
                         } else if (this.currentStep === 2) {
-                            this.bobEncodedData = "";
+                            this.aliceEncodedData = "";
+                            this.bobEncodedKAO = "";
+                            this.currentEncryptStep -= 2;
                             this.bobKeyPairs = {};
-                            this.result = [];
                         } else if (this.currentStep === 3) {
+                            this.bobEncodedData = "";
+                            this.currentEncryptStep--;
                             this.result = [];
                         }
                     }
