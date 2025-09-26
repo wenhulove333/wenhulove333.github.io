@@ -432,13 +432,23 @@
             min-height: 80px;
         }
 
+        .kao-alice {
+            background: rgba(224, 89, 26, 0.8);
+            color: white;
+        }
+
+        .kao-bob {
+            background: rgba(244, 81, 0, 0.8);
+            color: white;
+        }
+
         .ztdo-alice {
             background: rgba(52, 152, 219, 0.8);
             color: white;
         }
 
         .ztdo-bob {
-            background: rgba(39, 83, 239, 0.8);
+            background: rgba(2, 146, 242, 0.8);
             color: white;
         }
 
@@ -851,6 +861,19 @@
                         <!-- 可信应用框 -->
                         <div v-if="trustedAppGenerated" class="trusted-app-box">
                             <i class="fas fa-cube"></i> 可信应用 {{ appId }}
+                        </div>
+
+                        <!-- ZTDO数据容器 - 将Alice和Bob的ZTDO数据放在同一行 -->
+                        <div class="ztdo-container" v-if="aliceEncodedKAO || bobEncodedKAO">
+                            <!-- Alice ZTDO框 -->
+                            <div v-if="aliceEncodedKAO" class="ztdo-box kao-alice">
+                                <i class="fas fa-lock"></i> Alice 数据对象私钥封装
+                            </div>
+
+                            <!-- Bob ZTDO框 -->
+                            <div v-if="bobEncodedKAO" class="ztdo-box kao-bob">
+                                <i class="fas fa-lock"></i> Bob 数据对象私钥封装
+                            </div>
                         </div>
 
                         <!-- ZTDO数据容器 - 将Alice和Bob的ZTDO数据放在同一行 -->
