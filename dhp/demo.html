@@ -892,7 +892,7 @@
 						  fill="none"
 						  :marker-end="`url(#arrowhead-${connIndex})`"
 						>
-                            <animate v-if="isAliceEncrypting || isBobEncrypting || isAliceKAOEncrypting || isBobKAOEncrypting || isDhpProcessing"
+                            <animate v-if="isAliceEncrypting || isBobEncrypting || isAliceKAOEncrypting || isBobKAOEncrypting || (isDhpProcessing && currentDhpStep <= 4)"
                                 attributeName="stroke-dashoffset"
                                 from="15"
                                 to="0"
@@ -1707,8 +1707,8 @@
                 },
 
                 updateArrowsDuringDhpSteps() {
+                    this.clearConnections();
                     if (this.currentDhpStep <= 4) {
-                        this.clearConnections();
                         this.addConnection('.highlight-red', '.computation-step.highlight', this.arrowColor);
                     }
                 },
