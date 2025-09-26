@@ -141,6 +141,7 @@
             justify-content: space-between;
             align-items: stretch;
             margin-bottom: 40px;
+            position: relative;
         }
 
         .data-provider {
@@ -651,6 +652,83 @@
             opacity: 0.9;
         }
 
+        /* 新增的箭头连接样式 */
+        .arrow-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        .arrow-svg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .connection-controls {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .connection-controls input {
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .connection-controls button {
+            padding: 8px 16px;
+            background: #e74c3c;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .connection-controls button:hover {
+            background: #c0392b;
+        }
+
+        .connection-controls button.delete {
+            background: #ff4444;
+        }
+
+        .connection-controls button.delete:hover {
+            background: #cc0000;
+        }
+
+        .connections-list {
+            margin-top: 20px;
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .connection-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+        }
+
         @keyframes pulse {
             0% { transform: scale(1); }
             50% { transform: scale(1.05); }
@@ -704,6 +782,9 @@
             }
             .key-item-visual {
                 margin: 5px 0;
+            }
+            .connection-controls {
+                flex-direction: column;
             }
         }
     </style>
@@ -781,7 +862,40 @@
             </div>
 
             <!-- 数据提供方和TEE布局 -->
-            <div class="computation-layout">
+            <div class="computation-layout" ref="computationLayout">
+                <!-- 箭头容器 -->
+				<div class="arrow-container">
+				  <svg class="arrow-svg" ref="arrowSvg">
+					<!-- 循环每个连接，添加key -->
+					<template v-for="(conn, connIndex) in connections">
+					  <!-- 每个连接只定义一次箭头头（共享相同颜色） -->
+					  <defs>
+						<marker
+						  :id="`arrowhead-${connIndex}`"
+						  markerWidth="10"
+						  markerHeight="7"
+						  refX="9"
+						  refY="3.5"
+						  orient="auto"
+						>
+						  <polygon points="0 0, 10 3.5, 0 7" :fill="conn.color" />
+						</marker>
+					  </defs>
+
+					  <!-- 循环当前连接的所有路径，添加组合key确保唯一性 -->
+					  <template v-for="(path, pathIndex) in conn.paths">
+						<path
+						  :d="path.d"
+						  :stroke="conn.color"
+						  stroke-width="2"
+						  fill="none"
+						  :marker-end="`url(#arrowhead-${connIndex})`"
+						/>
+					  </template>
+					</template>
+				  </svg>
+				</div>
+
                 <!-- Alice数据提供方 -->
                 <div class="data-provider">
                     <div class="data-card">
@@ -793,16 +907,17 @@
                             <input type="text" id="alice-data" v-model="aliceInput" placeholder="例如: 1, 3, 5, 7, 11" :disabled="!trustedAppGenerated || isAliceEncrypting">
                         </div>
                         <button class="btn btn-primary" @click="submitAliceData" :disabled="isAliceKAOEncrypting || isAliceEncrypting || !trustedAppGenerated || aliceEncodedData.length > 0">
-                            <i class="fas fa-shield-alt"></i>
-                            <span v-if="isAliceEncrypting">加密中...</span>
-                            <span v-else>ZTDO数据封装</span>
+                            <span v-if="isAliceKAOEncrypting">数据对象私钥密中...</span>
+                            <span v-else-if="isAliceEncrypting">加密中...</span>
+                            <span v-else><i class="fas fa-shield-alt"></i>ZTDO数据封装</span>
                         </button>
 
                         <!-- 初始化时就显示的密钥对 -->
                         <div v-if="trustedAppGenerated">
                             <div class="data-box">
                                 <div v-for="(pair, title) in aliceKeyPairs" :key="title"
-                                     class="key-pair">
+                                     class="key-pair"
+                                     :class="{'alice-data-object-key': title === '数据对象密钥对'}">
                                     <div class="key-pair-title">{{ title }}</div>
                                     <div class="key-item"
                                         :class="{
@@ -869,27 +984,27 @@
                         </div>
 
                         <!-- ZTDO数据容器 - 将Alice和Bob的ZTDO数据放在同一行 -->
-                        <div class="ztdo-container" v-if="aliceEncodedKAO || bobEncodedKAO">
+                        <div class="ztdo-container" v-if="aliceEncodedKAO || bobEncodedKAO || isAliceKAOEncrypting || isBobKAOEncrypting">
                             <!-- Alice ZTDO框 -->
-                            <div v-if="aliceEncodedKAO" class="ztdo-box kao-alice">
+                            <div v-if="aliceEncodedKAO || isAliceKAOEncrypting" class="ztdo-box kao-alice alice-kao-box">
                                 <i class="fas fa-key"></i> Alice 数据对象私钥封装
                             </div>
 
                             <!-- Bob ZTDO框 -->
-                            <div v-if="bobEncodedKAO" class="ztdo-box kao-bob">
+                            <div v-if="bobEncodedKAO || isBobKAOEncrypting" class="ztdo-box kao-bob bob-kao-box">
                                 <i class="fas fa-key"></i> Bob 数据对象私钥封装
                             </div>
                         </div>
 
                         <!-- ZTDO数据容器 - 将Alice和Bob的ZTDO数据放在同一行 -->
-                        <div class="ztdo-container" v-if="aliceEncodedData || bobEncodedData">
+                        <div class="ztdo-container" v-if="aliceEncodedData || bobEncodedData || isAliceEncrypting || isBobEncrypting">
                             <!-- Alice ZTDO框 -->
-                            <div v-if="aliceEncodedData" class="ztdo-box ztdo-alice">
+                            <div v-if="aliceEncodedData || isAliceEncrypting" class="ztdo-box ztdo-alice alice-ztdo-box">
                                 <i class="fas fa-lock"></i> Alice ZTDO数据
                             </div>
 
                             <!-- Bob ZTDO框 -->
-                            <div v-if="bobEncodedData" class="ztdo-box ztdo-bob">
+                            <div v-if="bobEncodedData || isBobEncrypting" class="ztdo-box ztdo-bob bob-ztdo-box">
                                 <i class="fas fa-lock"></i> Bob ZTDO数据
                             </div>
                         </div>
@@ -916,7 +1031,8 @@
                                 <div v-if="currentDhpStep === 0">点击上方按钮开始DHP协议流程...</div>
                                 <div v-else>
                                     <div class="computation-step" v-for="(step, index) in dhpSteps" :key="index"
-                                         :class="{highlight: index === currentDhpStep - 1}">
+                                         :class="{highlight: index === currentDhpStep - 1}"
+                                         :class="{dhp-active-step: index === currentDhpStep - 1}">
                                         <i class="fas fa-cog fa-spin" v-if="index === currentDhpStep - 1 && !dhpStepCompleted && !isCurrentStepComplete"></i>
                                         <i class="fas fa-check" v-else-if="(isCurrentStepComplete && index === (currentDhpStep - 1)) || index < currentDhpStep || (dhpStepCompleted && index < dhpSteps.length)"></i>
                                         <i class="fas fa-ellipsis-h" v-else></i>
@@ -963,7 +1079,8 @@
                         <div v-if="aliceEncodedData">
                             <div class="data-box">
                                 <div v-for="(pair, title) in bobKeyPairs" :key="title"
-                                     class="key-pair">
+                                     class="key-pair"
+                                     :class="{'bob-data-object-key': title === '数据对象密钥对'}">
                                     <div class="key-pair-title">{{ title }}</div>
                                     <div class="key-item"
                                         :class="{
@@ -1072,6 +1189,12 @@
                 isAliceKAOEncrypting: false,
                 isBobKAOEncrypting: false,
                 isCurrentStepComplete: false,
+
+                // 箭头连接相关数据
+                fromClass: '.highlight-red',
+                toClass: '.alice-kao-box',
+                arrowColor: '#6961ffff',
+                connections: []
             },
             computed: {
                 progressWidth() {
@@ -1081,6 +1204,14 @@
                         return ((this.currentStep - 1) / 3) * 100 + '%';
                     }
                 }
+            },
+            mounted() {
+                // 监听窗口大小变化
+                window.addEventListener('resize', this.updateAllArrows);
+
+                // 监听步骤变化，更新箭头
+                this.$watch('currentDhpStep', this.updateArrowsDuringDhpSteps);
+                this.$watch('currentEncryptStep', this.updateArrowsDuringEncryptSteps);
             },
             methods: {
                 generateTrustedApp() {
@@ -1106,6 +1237,10 @@
                         this.aliceEncodedKAO = this.encryptDataObjectPrivateKey();
 
                         this.isAliceKAOEncrypting = false;
+                        // 更新箭头位置
+                        this.$nextTick(() => {
+                            this.updateAllArrows();
+                        });
                     }, 3000)
 
                     // 自动进入下一步
@@ -1152,6 +1287,10 @@
                             this.bobEncodedKAO = this.encryptDataObjectPrivateKey();
 
                             this.isBobKAOEncrypting = false;
+                            // 更新箭头位置
+                            this.$nextTick(() => {
+                                this.updateAllArrows();
+                            });
                         }, 3000)
 
                         // 自动进入下一步
@@ -1192,6 +1331,11 @@
                         if (this.currentStep === 3) {
                             this.currentStep = 4;
                         }
+
+                        // 更新箭头位置
+                        this.$nextTick(() => {
+                            this.updateAllArrows();
+                        });
                     }, 3000);
                 },
 
@@ -1248,31 +1392,34 @@
 
                     // 根据步骤索引调用相应的处理函数
                     switch(stepIndex) {
-                        case 0: // 解封Alice数据对象私钥封装
+                        case 1: // 解封Alice数据对象私钥封装
                             await this.unsealAliceKAO();
                             break;
-                        case 1: // 解密Alice ZTDO数据封装
+                        case 2: // 解密Alice ZTDO数据封装
                             await this.decryptAliceZTDO();
                             break;
-                        case 2: // 解封Bob数据对象私钥封装
+                        case 3: // 解封Bob数据对象私钥封装
                             await this.unsealBobKAO();
                             break;
-                        case 3: // 解密Bob ZTDO数据封装
+                        case 4: // 解密Bob ZTDO数据封装
                             await this.decryptBobZTDO();
                             break;
-                        case 4: // 调用可信应用执行机密计算
+                        case 5: // 调用可信应用执行机密计算
                             await this.executeTrustedApp();
                             break;
-                        case 5: // 审核计算结果
+                        case 6: // 审核计算结果
                             await this.auditResult();
                             break;
-                        case 6: // 返回安全结果
+                        case 7: // 返回安全结果
                             await this.returnSecureResult();
                             break;
                     }
 
                     this.isDhpProcessing = false;
-                    this.isCurrentStepComplete = true
+                    this.isCurrentStepComplete = true;
+
+                    // 更新箭头位置
+                    this.updateAllArrows();
                 },
 
                 // 解封Alice数据对象私钥封装
@@ -1402,6 +1549,9 @@
                             this.currentEncryptStep -= 2;
                             this.result = [];
                         }
+
+                        // 更新箭头位置
+                        this.updateAllArrows();
                     }
                 },
 
@@ -1428,6 +1578,151 @@
                     this.isBobEncrypting = false;
                     this.aliceEncodedKAO = "";
                     this.bobEncodedKAO = "";
+
+                    // 重置连接
+                    this.connections = [];
+                },
+
+                // 箭头连接相关方法
+                addConnection(fromClass, toClass, color) {
+                    if (!fromClass || !toClass) return;
+
+                    const newConnection = {
+                        from: fromClass,
+                        to: toClass,
+                        color: color,
+                        paths: []
+                    };
+
+                    this.connections.push(newConnection);
+                    this.updateConnectionPaths(newConnection);
+
+					console.log(this.connections)
+                },
+
+                removeConnection(index) {
+                    this.connections.splice(index, 1);
+                },
+
+                clearConnections() {
+                    this.connections = [];
+                },
+
+                updateArrowPath(connection) {
+                    const fromEl = document.querySelector(connection.from);
+                    const toEl = document.querySelector(connection.to);
+                    const container = this.$refs.computationLayout;
+
+                    if (!fromEl || !toEl || !container) return;
+
+                    const containerRect = container.getBoundingClientRect();
+                    const fromRect = fromEl.getBoundingClientRect();
+                    const toRect = toEl.getBoundingClientRect();
+
+                    // 计算相对于容器的中心点
+                    const fromX = fromRect.left + fromRect.width / 2 - containerRect.left;
+                    const fromY = fromRect.top + fromRect.height / 2 - containerRect.top;
+                    const toX = toRect.left + toRect.width / 2 - containerRect.left;
+                    const toY = toRect.top + toRect.height / 2 - containerRect.top;
+
+                    // 更新路径
+                    connection.path = `M ${fromX} ${fromY} L ${toX} ${toY}`;
+                },
+
+				// 更新单个连接的所有路径（处理多源元素）
+                updateConnectionPaths(connection) {
+                    const container = this.$refs.computationLayout;
+                    if (!container) return;
+
+                    // 获取所有匹配的源元素和目标元素
+                    const fromEls = document.querySelectorAll(connection.from);
+                    const toEl = document.querySelector(connection.to); // 假设目标元素唯一
+
+                    // 清空现有路径
+                    connection.paths = [];
+
+                    // 如果没有源元素或目标元素，直接返回
+                    if (fromEls.length === 0 || !toEl) return;
+
+                    const containerRect = container.getBoundingClientRect();
+                    const toRect = toEl.getBoundingClientRect();
+
+                    // 计算目标元素左右边缘中间点相对于容器的位置
+                    const toRightX = toRect.right - containerRect.left;
+                    const toLeftX = toRect.left - containerRect.left;
+                    const toMiddleY = toRect.top + toRect.height / 2 - containerRect.top;
+
+                    // 为每个源元素生成路径
+                    fromEls.forEach((fromEl, index) => {
+                        const fromRect = fromEl.getBoundingClientRect();
+
+                        // 计算源元素左右边缘中间点相对于容器的位置
+                        const fromRightX = fromRect.right - containerRect.left;
+                        const fromLeftX = fromRect.left - containerRect.left;
+                        const fromMiddleY = fromRect.top + fromRect.height / 2 - containerRect.top;
+
+                        // 判断源元素在目标元素的左侧还是右侧
+                        const fromIsLeftOfTo = fromRect.right < toRect.left;
+
+                        // 根据位置确定箭头起点和终点
+                        let startX, startY, endX, endY;
+                        if (fromIsLeftOfTo) {
+                            // 源元素在左侧：从源元素左边缘中间到目标元素右边缘中间
+                            startX = fromRightX;
+                            startY = fromMiddleY;
+                            endX = toLeftX;
+                            endY = toMiddleY;
+                        } else {
+                            // 源元素在右侧：从源元素右边缘中间到目标元素左边缘中间
+                            startX = fromLeftX;
+                            startY = fromMiddleY;
+                            endX = toRightX;
+                            endY = toMiddleY;
+                        }
+
+                        // 添加路径信息
+                        connection.paths.push({
+                            id: `${connection.id}-path-${index}`,
+                            fromEl: fromEl,
+                            d: `M ${startX} ${startY} L ${endX} ${endY}` // 路径数据
+                        });
+                    });
+                },
+
+                updateAllArrows() {
+                    this.$nextTick(() => {
+                        this.connections.forEach(conn => {
+                            this.updateConnectionPaths(conn);
+                        });
+                    });
+                },
+
+                updateArrowsDuringDhpSteps() {
+                    if (this.currentDhpStep <= 4) {
+                        this.clearConnections();
+                        this.addConnection('.highlight-red', '.computation-step.highlight', this.arrowColor);
+                    }
+                },
+
+                updateArrowsDuringEncryptSteps() {
+                    if (this.currentEncryptStep <= 4) {
+                        this.clearConnections();
+                    }
+
+                    switch(this.currentEncryptStep) {
+                        case 1: // 封装Alice数据对象私钥
+                            this.addConnection('.highlight-red', '.alice-kao-box', this.arrowColor);
+                            break;
+                        case 2: // 封装Alice ZTDO数据封装
+                            this.addConnection('.highlight-red', '.alice-ztdo-box', this.arrowColor);
+                            break;
+                        case 3: // 封装Bob数据对象私钥
+                            this.addConnection('.highlight-red', '.bob-kao-box', this.arrowColor);
+                            break;
+                        case 4: // 封装Bob ZTDO数据封装
+                            this.addConnection('.highlight-red', '.bob-ztdo-box', this.arrowColor);
+                            break;
+                    }
                 }
             }
         });
