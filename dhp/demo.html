@@ -752,7 +752,7 @@
                         <label for="app-name">应用名称</label>
                         <input type="text" id="app-name" v-model="appName" placeholder="例如: 隐私求交应用">
                     </div>
-                    <button class="btn btn-success" @click="generateTrustedApp">
+                    <button class="btn btn-success" @click="generateTrustedApp" :disabled="trustedAppGenerated">
                         <i class="fas fa-cogs"></i> 部署可信应用
                     </button>
 
@@ -792,7 +792,7 @@
                             <label for="alice-data">输入原始数据（逗号分隔）</label>
                             <input type="text" id="alice-data" v-model="aliceInput" placeholder="例如: 1, 3, 5, 7, 11" :disabled="!trustedAppGenerated || isAliceEncrypting">
                         </div>
-                        <button class="btn btn-primary" @click="submitAliceData" :disabled="isAliceKAOEncrypting || isAliceEncrypting">
+                        <button class="btn btn-primary" @click="submitAliceData" :disabled="isAliceKAOEncrypting || isAliceEncrypting || !trustedAppGenerated || aliceEncodedData.length > 0">
                             <i class="fas fa-shield-alt"></i>
                             <span v-if="isAliceEncrypting">加密中...</span>
                             <span v-else>ZTDO数据封装</span>
@@ -808,12 +808,17 @@
                                         :class="{
                                             'highlight-red': isAliceEncrypting && (title === '数据对象密钥对') ||
                                                             isAliceKAOEncrypting && (title === 'TEE密钥对') ||
-                                                            isAliceKAOEncrypting && (title === '临时会话密钥对')
+                                                            isAliceKAOEncrypting && (title === '临时会话密钥对') ||
+                                                            currentDhpStep === 1 && (title === '数据提供方密钥对') ||
+                                                            currentDhpStep === 2 && (title === '数据提供方密钥对')
                                         }">公钥: {{ pair.publicKey }}</div>
                                     <div class="key-item"
                                         :class="{
                                             'highlight-red': isAliceEncrypting && (title === '数据提供方密钥对') ||
-                                                             isAliceKAOEncrypting && (title === '数据提供方密钥对')
+                                                             isAliceKAOEncrypting && (title === '数据提供方密钥对') ||
+                                                             currentDhpStep === 1 && (title === 'TEE密钥对') ||
+                                                             currentDhpStep === 1 && (title === '临时会话密钥对') ||
+                                                             currentDhpStep === 2 && (title === '数据对象密钥对')
                                         }">私钥: {{ pair.privateKey }}</div>
                                 </div>
                             </div>
@@ -867,12 +872,12 @@
                         <div class="ztdo-container" v-if="aliceEncodedKAO || bobEncodedKAO">
                             <!-- Alice ZTDO框 -->
                             <div v-if="aliceEncodedKAO" class="ztdo-box kao-alice">
-                                <i class="fas fa-lock"></i> Alice 数据对象私钥封装
+                                <i class="fas fa-key"></i> Alice 数据对象私钥封装
                             </div>
 
                             <!-- Bob ZTDO框 -->
                             <div v-if="bobEncodedKAO" class="ztdo-box kao-bob">
-                                <i class="fas fa-lock"></i> Bob 数据对象私钥封装
+                                <i class="fas fa-key"></i> Bob 数据对象私钥封装
                             </div>
                         </div>
 
@@ -948,7 +953,7 @@
                             <label for="bob-data">输入原始数据（逗号分隔）</label>
                             <input type="text" id="bob-data" v-model="bobInput" placeholder="例如: 2, 3, 5, 13" :disabled="!aliceEncodedData || isBobEncrypting">
                         </div>
-                        <button class="btn btn-primary" @click="submitBobData" :disabled="!aliceEncodedData || isBobEncrypting || isBobKAOEncrypting">
+                        <button class="btn btn-primary" @click="submitBobData" :disabled="!aliceEncodedData || isBobEncrypting || isBobKAOEncrypting || bobEncodedData.length > 0">
                             <i class="fas fa-shield-alt"></i>
                             <span v-if="isBobEncrypting">加密中...</span>
                             <span v-else>ZTDO数据封装</span>
@@ -964,12 +969,17 @@
                                         :class="{
                                             'highlight-red': isBobEncrypting && (title === '数据对象密钥对') ||
                                                             isBobKAOEncrypting && (title === 'TEE密钥对') ||
-                                                            isBobKAOEncrypting && (title === '临时会话密钥对')
+                                                            isBobKAOEncrypting && (title === '临时会话密钥对') ||
+                                                            currentDhpStep === 3 && (title === '数据提供方密钥对') ||
+                                                            currentDhpStep === 4 && (title === '数据提供方密钥对')
                                         }">公钥: {{ pair.publicKey }}</div>
                                     <div class="key-item"
                                         :class="{
                                             'highlight-red': isBobEncrypting && (title === '数据提供方密钥对') ||
-                                                             isBobKAOEncrypting && (title === '数据提供方密钥对')
+                                                             isBobKAOEncrypting && (title === '数据提供方密钥对') ||
+                                                             currentDhpStep === 3 && (title === 'TEE密钥对') ||
+                                                             currentDhpStep === 3 && (title === '临时会话密钥对') ||
+                                                             currentDhpStep === 4 && (title === '数据对象密钥对')
                                         }">私钥: {{ pair.privateKey }}</div>
                                 </div>
                             </div>
@@ -1412,7 +1422,6 @@
                     this.isBobEncrypting = false;
                     this.aliceEncodedKAO = "";
                     this.bobEncodedKAO = "";
-
                 }
             }
         });
