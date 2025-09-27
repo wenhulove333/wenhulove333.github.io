@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DHP数据机密计算演示</title>
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+    <script src="./wasm_exec.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <style>
         * {
@@ -1221,8 +1222,20 @@
                 // 监听步骤变化，更新箭头
                 this.$watch('currentDhpStep', this.updateArrowsDuringDhpSteps);
                 this.$watch('currentEncryptStep', this.updateArrowsDuringEncryptSteps);
+
+                // 一定要放在最后
+                this.initWasm()
             },
             methods: {
+                async initWasm() {
+                    const go = new Go() // 初始化Go环境
+                    // 加载main.wasm并执行
+                    const result = await WebAssembly.instantiateStreaming(
+                        fetch('./main.wasm'), // 确保main.wasm路径正确
+                        go.importObject
+                    )
+                    go.run(result.instance) // 启动Go程序，此时Go暴露的函数已挂载到window
+                },
                 generateTrustedApp() {
                     if (!this.appName) {
                         alert("请输入应用名称");
