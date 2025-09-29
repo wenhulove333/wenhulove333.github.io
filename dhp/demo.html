@@ -1088,31 +1088,31 @@
                                         :class="{
                                             'highlight-red': currentEncryptStep === 2 && (getTitleFromKeyPair(title) === texts.dataObjectKeyPair) ||
                                                             currentEncryptStep === 1 && (getTitleFromKeyPair(title) === texts.teeKeyPair) ||
-                                                            currentEncryptStep === 1 && (getTitleFromKeyPair(title) === texts.temporarySessionKeyPair) ||
+                                                            currentEncryptStep === 1 && (getTitleFromKeyPair(title) === texts.tempSessionKeyPair) ||
                                                             currentDhpStep === 1 && (getTitleFromKeyPair(title) === texts.dataProviderKeyPair) ||
                                                             currentDhpStep === 2 && (getTitleFromKeyPair(title) === texts.dataProviderKeyPair)
-                                        }">公钥: {{ pair.publicKey }}</div>
+                                        }">{{ texts.publicKey }}: {{ pair.publicKey }}</div>
                                     <div class="key-item"
                                         :class="{
                                             'highlight-red': currentEncryptStep === 2 && (getTitleFromKeyPair(title) === texts.dataProviderKeyPair) ||
                                                              currentEncryptStep === 1 && (getTitleFromKeyPair(title) === texts.dataProviderKeyPair) ||
                                                              currentDhpStep === 1 && (getTitleFromKeyPair(title) === texts.teeKeyPair) ||
-                                                             currentDhpStep === 1 && (getTitleFromKeyPair(title) === texts.temporarySessionKeyPair) ||
+                                                             currentDhpStep === 1 && (getTitleFromKeyPair(title) === texts.tempSessionKeyPair) ||
                                                              currentDhpStep === 2 && (getTitleFromKeyPair(title) === texts.dataObjectKeyPair)
-                                        }">私钥: {{ pair.privateKey }}</div>
+                                        }">{{ texts.privateKey }}: {{ pair.privateKey }}</div>
                                 </div>
                             </div>
                         </div>
 
                         <div v-if="isAliceKAOEncrypting">
-                            <h3>数据对象私钥封装 <span class="result-badge">封装中...</span></h3>
+                            <h3>{{ texts.dataObjectPrivateKeyEncapsulation }} <span class="result-badge">{{ texts.encapsulating }}</span></h3>
                             <div class="data-box">
-                                <div class="encoded-data">使用数据对象提供方的私钥、TEE的公钥和临时公钥生成对称密钥，然后使用对称密钥对数据对象私钥进行加密封装</div>
+                                <div class="encoded-data">{{ texts.kaoEncryptionDescription }}</div>
                             </div>
                         </div>
 
                         <div v-if="aliceEncodedKAO && !isAliceKAOEncrypting">
-                            <h3>数据对象私钥封装 <span class="result-badge">已封装</span></h3>
+                            <h3>{{ texts.dataObjectPrivateKeyEncapsulation }} <span class="result-badge">{{ texts.encapsulated }}</span></h3>
                             <div class="data-box">
                                 <div class="encoded-data">
                                 <pre style="white-space: pre-wrap; word-wrap: break-word; overflow-x: auto; max-width: 100%; padding: 1rem; border-radius: 6px;">{{ prettyJson(aliceEncodedKAO) }}</pre></div>
@@ -1120,14 +1120,11 @@
                         </div>
 
                         <div v-if="isAliceEncrypting">
-                            <h3>ZTDO封装数据 <span class="result-badge">ZTDO数据封装中...</span></h3>
-                            <div class="data-box">
-                                <div class="encoded-data">使用数据对象提供方的私钥和数据对象的私钥生成对称密钥，然后使用对称密钥对数据对象的原始数据进行加密</div>
-                            </div>
+                            <h3>{{ texts.ztdoEncapsulatedData }} <span class="result-badge">{{ texts.ztdoDataEncapsulating }}</span></h3>
                         </div>
 
                         <div v-if="aliceEncodedData && !isAliceEncrypting">
-                            <h3>ZTDO封装数据 <span class="result-badge">已加密</span></h3>
+                            <h3>{{ texts.ztdoEncapsulatedData }} <span class="result-badge">{{ texts.encrypted }}</span></h3>
                             <div class="data-box">
                                 <div class="encoded-data"><pre style="white-space: pre-wrap; word-wrap: break-word; overflow-x: auto; max-width: 100%; padding: 1rem; border-radius: 6px;">{{ aliceEncodedData }}</pre></div>
                             </div>
@@ -1141,24 +1138,24 @@
                 <div class="tee-center">
                     <div class="tee-card">
                         <div class="card-title">
-                            <i class="fas fa-shield-alt"></i> 可信执行环境 (TEE)
+                            <i class="fas fa-shield-alt"></i> {{ texts.teeTitle }}
                         </div>
 
                         <!-- 可信应用框 -->
                         <div v-if="trustedAppGenerated" class="trusted-app-box">
-                            <i class="fas fa-cube"></i> 可信应用 {{ appId }}
+                            <i class="fas fa-cube"></i> {{ texts.trustedApp }} {{ appId }}
                         </div>
 
                         <!-- ZTDO数据容器 - 将Alice和Bob的ZTDO数据放在同一行 -->
                         <div class="ztdo-container" v-if="aliceEncodedKAO || bobEncodedKAO || isAliceKAOEncrypting || isBobKAOEncrypting">
                             <!-- Alice ZTDO框 -->
                             <div v-if="aliceEncodedKAO || isAliceKAOEncrypting" class="ztdo-box kao-alice alice-kao-box">
-                                <i class="fas fa-key"></i> Alice 数据对象私钥封装
+                                <i class="fas fa-key"></i> {{ texts.aliceDataObjectPrivateKeyEncapsulation }}
                             </div>
 
                             <!-- Bob ZTDO框 -->
                             <div v-if="bobEncodedKAO || isBobKAOEncrypting" class="ztdo-box kao-bob bob-kao-box">
-                                <i class="fas fa-key"></i> Bob 数据对象私钥封装
+                                <i class="fas fa-key"></i> {{ texts.bobDataObjectPrivateKeyEncapsulation }}
                             </div>
                         </div>
 
@@ -1166,35 +1163,35 @@
                         <div class="ztdo-container" v-if="aliceEncodedData || bobEncodedData || isAliceEncrypting || isBobEncrypting">
                             <!-- Alice ZTDO框 -->
                             <div v-if="aliceEncodedData || isAliceEncrypting" class="ztdo-box ztdo-alice alice-ztdo-box">
-                                <i class="fas fa-lock"></i> Alice ZTDO数据
+                                <i class="fas fa-lock"></i> {{ texts.aliceZTDOData }}
                             </div>
 
                             <!-- Bob ZTDO框 -->
                             <div v-if="bobEncodedData || isBobEncrypting" class="ztdo-box ztdo-bob bob-ztdo-box">
-                                <i class="fas fa-lock"></i> Bob ZTDO数据
+                                <i class="fas fa-lock"></i> {{ texts.bobZTDOData }}
                             </div>
                         </div>
 
                         <div class="info-box">
-                            <i class="fas fa-info-circle"></i> 在TEE中，数据被解密并执行计算，但任何人都无法从外部访问原始数据。
+                            <i class="fas fa-info-circle"></i> {{ texts.teeDescription }}
                         </div>
 
                         <div v-if="currentStep < 4">
                             <div class="data-box">
-                                <div v-if="currentStep === 1">等待生成可信应用...</div>
-                                <div v-else-if="currentStep === 2">等待Alice数据封装完成...</div>
-                                <div v-else-if="currentStep === 3">等待Bob数据封装完成...</div>
+                                <div v-if="currentStep === 1">{{ texts.waitingForTrustedApp }}</div>
+                                <div v-else-if="currentStep === 2">{{ texts.waitingForAliceData }}</div>
+                                <div v-else-if="currentStep === 3">{{ texts.waitingForBobData }}</div>
                             </div>
                         </div>
                         <div v-else>
                             <button class="btn btn-secondary dhp-step-btn" @click="nextDhpStep" :disabled="dhpStepCompleted || isDhpProcessing">
                                 <i class="fas fa-forward"></i>
-                                <span v-if="isDhpProcessing">处理中...</span>
-                                <span v-else>DHP协议下一步</span>
+                                <span v-if="isDhpProcessing">{{ texts.processing }}</span>
+                                <span v-else>{{ texts.nextDhpStep }}</span>
                             </button>
 
                             <div class="data-box">
-                                <div v-if="currentDhpStep === 0">点击上方按钮开始DHP协议流程...</div>
+                                <div v-if="currentDhpStep === 0">{{ texts.clickToStartDhp }}</div>
                                 <div v-else>
                                     <div class="computation-step" v-for="(step, index) in dhpSteps" :key="index"
                                          :class="{highlight: index === currentDhpStep - 1}"
@@ -1209,14 +1206,14 @@
                         </div>
 
                         <div v-if="result.length > 0 && dhpStepCompleted">
-                            <h3>交集计算结果 <span class="success-badge">安全返回</span></h3>
+                            <h3>{{ texts.intersectionResult }} <span class="success-badge">{{ texts.safelyReturned }}</span></h3>
                             <div class="data-box">
                                 <div class="data-item" v-for="(num, index) in result" :key="index">
-                                    <span>交集数据 {{ index + 1 }}</span>
+                                    <span>{{ texts.intersectionData }} {{ index + 1 }}</span>
                                     <span>{{ num }}</span>
                                 </div>
                                 <div class="data-item" v-if="result.length === 0">
-                                    <span>无交集数据</span>
+                                    <span>{{ texts.noIntersectionData }}</span>
                                 </div>
                             </div>
                         </div>
@@ -1229,16 +1226,16 @@
                 <div class="data-provider">
                     <div class="data-card">
                         <div class="card-title">
-                            <i class="fas fa-user-circle"></i> 数据提供方 Bob
+                            <i class="fas fa-user-circle"></i> {{ texts.bobTitle }}
                         </div>
                         <div class="input-group">
-                            <label for="bob-data">输入原始数据（逗号分隔）</label>
-                            <input type="text" id="bob-data" v-model="bobInput" placeholder="例如: 2, 3, 5, 13" :disabled="!aliceEncodedData || isBobEncrypting">
+                            <label for="bob-data">{{ texts.bobInputLabel }}</label>
+                            <input type="text" id="bob-data" v-model="bobInput" placeholder="texts.bobInputPlaceholder" :disabled="!aliceEncodedData || isBobEncrypting">
                         </div>
                         <button class="btn btn-primary" @click="submitBobData" :disabled="!aliceEncodedData || isBobEncrypting || isBobKAOEncrypting || bobEncodedData.length > 0">
-                            <span v-if="isBobKAOEncrypting"><i class="fas fa-cog fa-spin mr-2"></i>数据对象私钥封装中...</span>
-                            <span v-else-if="isBobEncrypting"><i class="fas fa-cog fa-spin mr-2"></i>ZTDO数据封装中...</span>
-                            <span v-else><i class="fas fa-shield-alt"></i>ZTDO数据封装</span>
+                            <span v-if="isBobKAOEncrypting"><i class="fas fa-cog fa-spin mr-2"></i>{{ texts.encryptingDataObjectPrivateKey }}</span>
+                            <span v-else-if="isBobEncrypting"><i class="fas fa-cog fa-spin mr-2"></i>{{ texts.encryptingZTDOData }}</span>
+                            <span v-else><i class="fas fa-shield-alt"></i>{{ texts.encryptZTDOData }}</span>
                         </button>
 
                         <!-- 初始化时就显示的密钥对 -->
@@ -1246,37 +1243,37 @@
                             <div class="data-box">
                                 <div v-for="(pair, title) in bobKeyPairs" :key="title"
                                      class="key-pair"
-                                     :class="{'bob-data-object-key': title === '数据对象密钥对'}">
-                                    <div class="key-pair-title">{{ title }}</div>
+                                     :class="{'bob-data-object-key': getTitleFromKeyPair(title) === texts.dataObjectKeyPair}">
+                                    <div class="key-pair-title">{{ getTitleFromKeyPair(title) }}</div>
                                     <div class="key-item"
                                         :class="{
-                                            'highlight-red': currentEncryptStep === 4 && (title === '数据对象密钥对') ||
-                                                            currentEncryptStep === 3 && (title === 'TEE密钥对') ||
-                                                            currentEncryptStep === 3 && (title === '临时会话密钥对') ||
-                                                            currentDhpStep === 3 && (title === '数据提供方密钥对') ||
-                                                            currentDhpStep === 4 && (title === '数据提供方密钥对')
-                                        }">公钥: {{ pair.publicKey }}</div>
+                                            'highlight-red': currentEncryptStep === 4 && (getTitleFromKeyPair(title) === texts.dataObjectKeyPair) ||
+                                                            currentEncryptStep === 3 && (getTitleFromKeyPair(title) === texts.teeKeyPair) ||
+                                                            currentEncryptStep === 3 && (getTitleFromKeyPair(title) === texts.tempSessionKeyPair) ||
+                                                            currentDhpStep === 3 && (getTitleFromKeyPair(title) === texts.dataProviderKeyPair) ||
+                                                            currentDhpStep === 4 && (getTitleFromKeyPair(title) === texts.dataProviderKeyPair)
+                                        }">{{ texts.publicKey }}: {{ pair.publicKey }}</div>
                                     <div class="key-item"
                                         :class="{
-                                            'highlight-red': currentEncryptStep === 4 && (title === '数据提供方密钥对') ||
-                                                             currentEncryptStep === 3 && (title === '数据提供方密钥对') ||
-                                                             currentDhpStep === 3 && (title === 'TEE密钥对') ||
-                                                             currentDhpStep === 3 && (title === '临时会话密钥对') ||
-                                                             currentDhpStep === 4 && (title === '数据对象密钥对')
-                                        }">私钥: {{ pair.privateKey }}</div>
+                                            'highlight-red': currentEncryptStep === 4 && (getTitleFromKeyPair(title) === texts.dataProviderKeyPair) ||
+                                                             currentEncryptStep === 3 && (getTitleFromKeyPair(title) === texts.dataProviderKeyPair) ||
+                                                             currentDhpStep === 3 && (getTitleFromKeyPair(title) === texts.teeKeyPair) ||
+                                                             currentDhpStep === 3 && (getTitleFromKeyPair(title) === texts.tempSessionKeyPair) ||
+                                                             currentDhpStep === 4 && (getTitleFromKeyPair(title) === texts.dataObjectKeyPair)
+                                        }">{{ texts.privateKey }}: {{ pair.privateKey }}</div>
                                 </div>
                             </div>
                         </div>
 
                         <div v-if="isBobKAOEncrypting">
-                            <h3>数据对象私钥封装 <span class="result-badge">封装中...</span></h3>
+                            <h3>{{ texts.ztdoEncapsulatedData }} <span class="result-badge">{{ texts.ztdoDataEncapsulating }}</span></h3>
                             <div class="data-box">
-                                <div class="encoded-data">使用数据对象提供方的私钥、TEE的公钥和临时公钥生成对称密钥，然后使用对称密钥对数据对象私钥进行加密封装</div>
+                                <div class="encoded-data">{{ texts.ztdoEncryptionDescription }}</div>
                             </div>
                         </div>
 
                         <div v-if="bobEncodedKAO && !isBobKAOEncrypting">
-                            <h3>数据对象私钥封装 <span class="result-badge">已封装</span></h3>
+                            <h3>{{ texts.dataObjectPrivateKeyEncapsulation }} <span class="result-badge">{{ texts.encapsulated }}</span></h3>
                             <div class="data-box">
                                 <div class="encoded-data">
                                 <pre style="white-space: pre-wrap; word-wrap: break-word; overflow-x: auto; max-width: 100%; padding: 1rem; border-radius: 6px;">{{ prettyJson(bobEncodedKAO) }}</pre></div>
@@ -1284,11 +1281,11 @@
                         </div>
 
                         <div v-if="isBobEncrypting">
-                            <h3>ZTDO封装数据 <span class="result-badge">ZTDO数据封装中...</span></h3>
+                            <h3>{{ texts.ztdoEncapsulatedData }} <span class="result-badge">{{ texts.ztdoDataEncapsulating }}</span></h3>
                         </div>
 
                         <div v-if="bobEncodedData && !isBobEncrypting">
-                            <h3>ZTDO封装数据 <span class="result-badge">已加密</span></h3>
+                            <h3>{{ texts.ztdoEncapsulatedData }} <span class="result-badge">{{ texts.encrypted }}</span></h3>
                             <div class="data-box">
                                 <div class="encoded-data"><pre style="white-space: pre-wrap; word-wrap: break-word; overflow-x: auto; max-width: 100%; padding: 1rem; border-radius: 6px;">{{ bobEncodedData }}</pre></div>
                             </div>
@@ -1298,15 +1295,15 @@
             </div>
 
             <div class="note">
-                注意：在实际系统中，ZTDO封装所涉及的私钥是严格保密的，可信执行环境中的私钥是系统启动的时候自动生成的，即使管理员也无法获取到私钥。此演示页面展示的公私钥仅用于展示DHP技术原理。
+                {{ texts.finalNote }}
             </div>
 
             <div class="controls">
                 <button class="btn btn-primary" @click="prevStep" :disabled="currentStep === 1">
-                    <i class="fas fa-arrow-left"></i> 上一步
+                    <i class="fas fa-arrow-left"></i> {{ texts.previousStep }}
                 </button>
                 <button class="btn btn-primary" @click="resetDemo">
-                    <i class="fas fa-sync"></i> 重新开始
+                    <i class="fas fa-sync"></i> {{ texts.restart }}
                 </button>
             </div>
         </div>
@@ -1316,6 +1313,7 @@
         // 语言包
         const languagePack = {
             zh: {
+                headTitle: "DHP数据机密计算演示",
                 title: "基于零信任DHP协议的隐私保护计算",
                 subtitle: "基于DHP+可信执行环境(TEE)进行机密计算，在TEE中计算数据集的交集，保护数据隐私",
                 note: "（演示用到的所有密钥对采用国密算法SM2生成）",
@@ -1383,9 +1381,30 @@
                 bobInputPlaceholder: "例如: 2, 3, 5, 13",
                 previousStep: "上一步",
                 restart: "重新开始",
-                finalNote: "注意：在实际系统中，ZTDO封装所涉及的私钥是严格保密的，可信执行环境中的私钥是系统启动的时候自动生成的，即使管理员也无法获取到私钥。此演示页面展示的公私钥仅用于展示DHP技术原理。"
+                finalNote: "注意：在实际系统中，ZTDO封装所涉及的私钥是严格保密的，可信执行环境中的私钥是系统启动的时候自动生成的，即使管理员也无法获取到私钥。此演示页面展示的公私钥仅用于展示DHP技术原理。",
+                				appNameInputAlert: "请输入应用名称",
+				aliceInputAlert: "请输入Alice的数据",
+				bobInputAlert: "请输入Bob的数据",
+				ztdoEncryptFailedAlert: "数据封装失败",
+				dataPrkEncapFailedAlert: "数据对象私钥封装失败",
+				genKeyPairFailedAlert: "生成密钥对失败",
+				aliceDataPrkDecryptFailedAlert: "解封Alice数据对象私钥封装失败",
+				aliceUnexpectedDecryptedDataPrkAlert: "解封Alice数据对象私钥封装成功，但与预期不符",
+				aliceDataDecryptFailedAlert: "解密Alice ZTDO数据封装失败",
+				aliceUnexpectedDecryptedDataAlert: "解密Alice ZTDO数据封装成功，但与预期不符",
+				bobDataPrkDecryptFailedAlert: "解封Bob数据对象私钥封装失败",
+				bobUnexpectedDecryptedDataPrkAlert: "解封Bob数据对象私钥封装成功，但与预期不符",
+				bobDataDecryptFailedAlert: "解密Bob ZTDO数据封装失败",
+				bobUnexpectedDecryptedDataAlert: "解密Bob ZTDO数据封装成功，但与预期不符",
+				genTrustAppNotification: "可信应用部署成功后，自动开始Alice的数据对象私钥封装。",
+				aliceZTDOFinishNotification: "Alice ZTDO封装完成之后，自动开始Bob的数据对象私钥封装。",
+				aliceDataPrkDecryptFinishNotification: "解封Alice数据对象私钥封装成功，数据对象私钥：",
+				aliceDataDecryptFinishNotification: "解密Alice ZTDO数据封装成功，原始数据：",
+				bobDataPrkDecryptFinishNotification: "解封Bob数据对象私钥封装成功，数据对象私钥：",
+				bobDataDecryptFinishNotification: "解密Bob ZTDO数据封装成功，原始数据："
             },
             en: {
+                headTitle: "DHP Based Privacy-Preserving Computation Demonstration",
                 title: "Privacy-Preserving Computation Based on Zero-Trust DHP Protocol",
                 subtitle: "Using DHP + Trusted Execution Environment (TEE) for confidential computing, computing dataset intersections in TEE to protect data privacy",
                 note: "(All key pairs used in this demo are generated using the SM2 national cryptographic algorithm)",
@@ -1453,7 +1472,26 @@
                 bobInputPlaceholder: "e.g., 2, 3, 5, 13",
                 previousStep: "Previous Step",
                 restart: "Restart",
-                finalNote: "Note: In actual systems, the private keys involved in ZTDO encapsulation are strictly confidential. The private keys in the trusted execution environment are automatically generated when the system starts up, and even administrators cannot access them. The public and private keys displayed on this demo page are only for demonstrating DHP technical principles."
+                finalNote: "Note: In actual systems, the private keys involved in ZTDO encapsulation are strictly confidential. The private keys in the trusted execution environment are automatically generated when the system starts up, and even administrators cannot access them. The public and private keys displayed on this demo page are only for demonstrating DHP technical principles.",
+                aliceInputAlert: "Please enter Alice's data",
+                bobInputAlert: "Please enter Bob's data",
+                ztdoEncryptFailedAlert: "Data encapsulation failed",
+                dataPrkEncapFailedAlert: "Failed to encapsulate the private key of the data object",
+                genKeyPairFailedAlert: "Failed to generate key pair",
+                aliceDataPrkDecryptFailedAlert: "Failed to decapsulate the private key encapsulation of Alice's data object",
+                aliceUnexpectedDecryptedDataPrkAlert: "Successfully decapsulated the private key encapsulation of Alice's data object, but it does not match the expectation",
+                aliceDataDecryptFailedAlert: "Failed to decrypt Alice's ZTDO data encapsulation",
+                aliceUnexpectedDecryptedDataAlert: "Successfully decrypted Alice's ZTDO data encapsulation, but it does not match the expectation",
+                bobDataPrkDecryptFailedAlert: "Failed to decapsulate the private key encapsulation of Bob's data object",
+                bobUnexpectedDecryptedDataPrkAlert: "Successfully decapsulated the private key encapsulation of Bob's data object, but it does not match the expectation",
+                bobDataDecryptFailedAlert: "Failed to decrypt Bob's ZTDO data encapsulation",
+                bobUnexpectedDecryptedDataAlert: "Successfully decrypted Bob's ZTDO data encapsulation, but it does not match the expectation",
+                genTrustAppNotification: "After the trusted app is successfully deployed, the encapsulation of Alice's data object private key will start automatically.",
+                aliceZTDOFinishNotification: "After the encapsulation of Alice's ZTDO is completed, the encapsulation of Bob's data object private key will start automatically.",
+                aliceDataPrkDecryptFinishNotification: "Successfully decapsulate the private key encapsulation of Alice's data object. Private key of the data object:",
+                aliceDataDecryptFinishNotification: "Successfully decrypt Alice's ZTDO data encapsulation. Original data:",
+                bobDataPrkDecryptFinishNotification: "Successfully decapsulate the private key encapsulation of Bob's data object. Private key of the data object:",
+                bobDataDecryptFinishNotification: "Successfully decrypt Bob's ZTDO data encapsulation. Original data:"
             }
         };
 
@@ -1528,6 +1566,9 @@
 
                 // 一定要放在最后
                 this.initWasm()
+            },
+            updated() {
+                document.title = this.texts.headTitle
             },
             methods: {
                 switchLanguage() {
@@ -1627,7 +1668,7 @@
                 },
                 async generateTrustedApp() {
                     if (!this.appName) {
-                        alert("请输入应用名称");
+                        alert(this.texts.appNameInputAlert);
                         return;
                     }
 
@@ -1637,7 +1678,7 @@
                     this.appHash = this.generateHash(64);
                     this.trustedAppGenerated = true;
 
-                    this.showNotification("可信应用部署成功后，自动开始Alice的数据对象私钥封装。");
+                    this.showNotification(this.texts.genTrustAppNotification);
 
                     // 初始化Alice的密钥对
                     this.aliceKeyPairs = this.generateKeyPairs();
@@ -1667,7 +1708,7 @@
 
                 async submitAliceData() {
                     if (!this.aliceInput) {
-                        alert("请输入Alice的数据");
+                        alert(this.texts.aliceInputAlert);
                         return;
                     }
 
@@ -1694,7 +1735,7 @@
                     // 初始化Bob的密钥对（在Alice加密完成后）
                     this.bobKeyPairs = this.generateKeyPairs();
 
-                    this.showNotification("Alice ZTDO封装完成之后，自动开始Bob的数据对象私钥封装。");
+                    this.showNotification(this.texts.aliceZTDOFinishNotification);
 
                     // 开始Bob数据对象私钥封装
                     this.isBobKAOEncrypting = true;
@@ -1721,7 +1762,7 @@
 
                 async submitBobData() {
                     if (!this.bobInput) {
-                        alert("请输入Bob的数据");
+                        alert(this.texts.bobInputAlert);
                         return;
                     }
 
@@ -1764,7 +1805,7 @@
                     );
 
                     if (!res.success) {
-                        alert("数据封装失败");
+                        alert(this.texts.ztdoEncryptFailedAlert);
                         return "";
                     }
 
@@ -1782,7 +1823,7 @@
                     );
 
                     if (!res.success) {
-                        alert("数据对象私钥封装失败");
+                        alert(this.texts.dataPrkEncapFailedAlert);
                         return "";
                     }
 
@@ -1800,7 +1841,7 @@
                     const tempSessionKeyPair = window.generateSM2KeyPairFromGo();
 
                     if (!providerKeyPair.success || !dataObjectKeyPair.success || !nhpAgentKeyPair.success || !teeKeyPair.success || !tempSessionKeyPair.success) {
-                        alert("生成密钥对失败");
+                        alert(this.texts.genKeyPairFailedAlert);
                         return {};
                     }
 
@@ -1834,7 +1875,7 @@
                     } else if (key === "tee") {
                         return this.texts.teeKeyPair;
                     } else if (key === "temp") {
-                        return this.texts.tempKeyPair;
+                        return this.texts.tempSessionKeyPair;
                     } else if (key === "dataProvider") {
                         return this.texts.dataProviderKeyPair;
                     } else if (key === "dataObject") {
@@ -1897,19 +1938,19 @@
                     )
 
                     if (!res.success) {
-                        alert("解封Alice数据对象私钥封装失败");
+                        alert(this.texts.aliceDataPrkDecryptFailedAlert);
                         return;
                     }
 
                     if (!(this.aliceKeyPairs["dataObject"].privateKey === res.dataPrkBase64)) {
-                        alert("解封Alice数据对象私钥封装成功，但与预期不符");
+                        alert(this.texts.aliceUnexpectedDecryptedDataPrkAlert);
                         return;
                     }
 
                     // 模拟处理延迟
                     await this.delay(this.stepDelay);
 
-                    this.showNotification("解封Alice数据对象私钥封装成功，数据对象私钥：" + res.dataPrkBase64 + "。");
+                    this.showNotification(this.texts.aliceDataPrkDecryptFinishNotification + res.dataPrkBase64 + "。");
                 },
 
                 // 解密Alice ZTDO数据封装
@@ -1921,19 +1962,19 @@
                     )
 
                     if (!res.success) {
-                        alert("解密Alice ZTDO数据封装失败");
+                        alert(this.texts.aliceDataDecryptFailedAlert);
                         return;
                     }
 
                     if (!(this.aliceInput === res.rawData)) {
-                        alert("解密Alice ZTDO数据封装成功，但与预期不符");
+                        alert(this.texts.aliceUnexpectedDecryptedDataAlert);
                         return;
                     }
 
                     // 模拟处理延迟
                     await this.delay(this.stepDelay);
 
-                    this.showNotification("解密Alice ZTDO数据封装成功，原始数据：" + res.rawData + "。");
+                    this.showNotification(this.texts.aliceDataDecryptFinishNotification + res.rawData + "。");
                 },
 
                 // 解封Bob数据对象私钥封装
@@ -1945,19 +1986,19 @@
                     )
 
                     if (!res.success) {
-                        alert("解封Bob数据对象私钥封装失败");
+                        alert(this.texts.bobDataPrkDecryptFailedAlert);
                         return;
                     }
 
                     if (!(this.bobKeyPairs["dataObject"].privateKey === res.dataPrkBase64)) {
-                        alert("解封Bob数据对象私钥封装成功，但与预期不符");
+                        alert(this.texts.bobUnexpectedDecryptedDataPrkAlert);
                         return;
                     }
 
                     // 模拟处理延迟
                     await this.delay(this.stepDelay);
 
-                    this.showNotification("解封Bob数据对象私钥封装成功，数据对象私钥：" + res.dataPrkBase64 + "。");
+                    this.showNotification(this.texts.bobDataPrkDecryptFinishNotification + res.dataPrkBase64 + "。");
                 },
 
                 // 解密Bob ZTDO数据封装
@@ -1969,19 +2010,19 @@
                     )
 
                     if (!res.success) {
-                        alert("解密Bob ZTDO数据封装失败");
+                        alert(this.texts.bobDataDecryptFailedAlert);
                         return;
                     }
 
                     if (!(this.bobInput === res.rawData)) {
-                        alert("解密Bob ZTDO数据封装成功，但与预期不符");
+                        alert(this.texts.bobUnexpectedDecryptedDataAlert);
                         return;
                     }
 
                     // 模拟处理延迟
                     await this.delay(this.stepDelay);
 
-                    this.showNotification("解密Bob ZTDO数据封装成功，原始数据：" + res.rawData + "。");
+                    this.showNotification(this.texts.bobDataDecryptFinishNotification + res.rawData + "。");
                 },
 
                 // 调用可信应用执行机密计算
