@@ -622,6 +622,12 @@
             color: #3498db;
         }
 
+        .key-pair-additional-info {
+            font-size: 0.85em;
+            color: #99cbed;
+            margin-bottom: 15px;
+        }
+
         /* 新增的ZTDO封装动画样式 */
         .encryption-animation {
             position: relative;
@@ -1084,6 +1090,7 @@
                                      class="key-pair"
                                      :class="{'alice-data-object-key': getTitleFromKeyPair(title) === texts.dataObjectKeyPair}">
                                     <div class="key-pair-title">{{ getTitleFromKeyPair(title) }}</div>
+                                    <div class="key-pair-additional-info">{{ getTitleAdditionalInfoFromKeyPair(title) }}</div>
                                     <div class="key-item"
                                         :class="{
                                             'highlight-red': currentEncryptStep === 2 && (getTitleFromKeyPair(title) === texts.dataObjectKeyPair) ||
@@ -1245,6 +1252,7 @@
                                      class="key-pair"
                                      :class="{'bob-data-object-key': getTitleFromKeyPair(title) === texts.dataObjectKeyPair}">
                                     <div class="key-pair-title">{{ getTitleFromKeyPair(title) }}</div>
+                                    <div class="key-pair-additional-info">{{ getTitleAdditionalInfoFromKeyPair(title) }}</div>
                                     <div class="key-item"
                                         :class="{
                                             'highlight-red': currentEncryptStep === 4 && (getTitleFromKeyPair(title) === texts.dataObjectKeyPair) ||
@@ -1351,10 +1359,15 @@
                 ztdoDataEncapsulating: "ZTDO数据封装中...",
                 encrypted: "已加密",
                 dataObjectKeyPair: "数据对象密钥对",
+                dataObjectKeyPairAdditionalInfo: "实现数据对象与密钥的一文一钥对应，为每个数据对象赋予独一无二的数字身份。",
                 teeKeyPair: "TEE密钥对",
+                teeKeyPairAdditionalInfo: "保证ZTDO数据对象只能在对应TEE环境中解密，确保数据隐私。",
                 tempSessionKeyPair: "临时会话密钥对",
+                tempSessionKeyPairAdditionalInfo: "实现数据对象的一用一密，赋予每一次数据对象的使用过程一个独一无二的授权密码，不可预测、不可重复使用",
                 dataProviderKeyPair: "数据提供方密钥对",
-                nhpAgentKeyPair: "NHP代理密钥对（用于DHP消息）",
+                dataProviderKeyPairAdditionalInfo: "参与ZTDO数据对象加密和数据对象私钥的封装，从而明确数据主权的归属主体。",
+                nhpAgentKeyPair: "NHP代理密钥对",
+                nhpAgentKeyPairAdditionalInfo: "用于DHP消息的加密和签名，确保消息的安全性和完整性。",
                 publicKey: "公钥",
                 privateKey: "私钥",
                 kaoEncryptionDescription: "使用数据对象提供方的私钥、TEE的公钥和临时公钥生成对称密钥，然后使用对称密钥对数据对象私钥进行加密封装",
@@ -1442,10 +1455,15 @@
                 ztdoDataEncapsulating: "ZTDO Data Encapsulating...",
                 encrypted: "Encrypted",
                 dataObjectKeyPair: "Data Object Key Pair",
+                dataObjectKeyPairAdditionalInfo: "Realize the 'one data object, one key' correspondence between data objects and keys, and endow each data object with a unique digital identity.",
                 teeKeyPair: "TEE Key Pair",
+                teeKeyPairAdditionalInfo: "Ensure that ZTDO data objects can only be decrypted in corresponding TEE environment to guarantee data privacy.",
                 tempSessionKeyPair: "Temporary Session Key Pair",
+                tempSessionKeyPairAdditionalInfo: "Realize the 'one use, one key' for data objects, and assign a unique authorization password to each usage process of the data object, which is unpredictable and non-reusable.",
                 dataProviderKeyPair: "Data Provider Key Pair",
-                nhpAgentKeyPair: "NHP Agent Key Pair (for DHP Messages)",
+                dataProviderKeyPairAdditionalInfo: "Participate in the encryption of ZTDO data objects and the encapsulation of data object private keys, so as to clarify the subject of data sovereignty ownership.",
+                nhpAgentKeyPair: "NHP Agent Key Pair",
+                nhpAgentKeyPairAdditionalInfo: "Used for the encryption and signature of DHP messages to ensure the security and integrity of messages.",
                 publicKey: "Public Key",
                 privateKey: "Private Key",
                 kaoEncryptionDescription: "Using the data provider's private key, TEE's public key, and temporary public key to generate a symmetric key, then using the symmetric key to encrypt the data object private key",
@@ -1880,6 +1898,20 @@
                         return this.texts.dataProviderKeyPair;
                     } else if (key === "dataObject") {
                         return this.texts.dataObjectKeyPair;
+                    }
+                },
+
+                getTitleAdditionalInfoFromKeyPair(key) {
+                    if (key === "nhpAgent") {
+                        return this.texts.nhpAgentKeyPairAdditionalInfo;
+                    } else if (key === "tee") {
+                        return this.texts.teeKeyPairAdditionalInfo;
+                    } else if (key === "temp") {
+                        return this.texts.tempSessionKeyPairAdditionalInfo;
+                    } else if (key === "dataProvider") {
+                        return this.texts.dataProviderKeyPairAdditionalInfo;
+                    } else if (key === "dataObject") {
+                        return this.texts.dataObjectKeyPairAdditionalInfo;
                     }
                 },
 
