@@ -1395,7 +1395,7 @@
                 previousStep: "上一步",
                 restart: "重新开始",
                 finalNote: "注意：在实际系统中，ZTDO封装所涉及的私钥是严格保密的，可信执行环境中的私钥是系统启动的时候自动生成的，即使管理员也无法获取到私钥。此演示页面展示的公私钥仅用于展示DHP技术原理。",
-                				appNameInputAlert: "请输入应用名称",
+                appNameInputAlert: "请输入应用名称",
 				aliceInputAlert: "请输入Alice的数据",
 				bobInputAlert: "请输入Bob的数据",
 				ztdoEncryptFailedAlert: "数据封装失败",
@@ -1409,6 +1409,7 @@
 				bobUnexpectedDecryptedDataPrkAlert: "解封Bob数据对象私钥封装成功，但与预期不符",
 				bobDataDecryptFailedAlert: "解密Bob ZTDO数据封装失败",
 				bobUnexpectedDecryptedDataAlert: "解密Bob ZTDO数据封装成功，但与预期不符",
+				wasmLoadAlert: "等待Wasm模块加载完成",
 				genTrustAppNotification: "可信应用部署成功后，自动开始Alice的数据对象私钥封装。",
 				aliceZTDOFinishNotification: "Alice ZTDO封装完成之后，自动开始Bob的数据对象私钥封装。",
 				aliceDataPrkDecryptFinishNotification: "解封Alice数据对象私钥封装成功，数据对象私钥：",
@@ -1504,6 +1505,7 @@
                 bobUnexpectedDecryptedDataPrkAlert: "Successfully decapsulated the private key encapsulation of Bob's data object, but it does not match the expectation",
                 bobDataDecryptFailedAlert: "Failed to decrypt Bob's ZTDO data encapsulation",
                 bobUnexpectedDecryptedDataAlert: "Successfully decrypted Bob's ZTDO data encapsulation, but it does not match the expectation",
+                wasmLoadAlert: "Please wait for the Wasm module to load before proceeding.",
                 genTrustAppNotification: "After the trusted app is successfully deployed, the encapsulation of Alice's data object private key will start automatically.",
                 aliceZTDOFinishNotification: "After the encapsulation of Alice's ZTDO is completed, the encapsulation of Bob's data object private key will start automatically.",
                 aliceDataPrkDecryptFinishNotification: "Successfully decapsulate the private key encapsulation of Alice's data object. Private key of the data object:",
@@ -1564,6 +1566,9 @@
                 arrowColor: '#6961ffff',
                 connections: [],
                 stepDelay: 500,
+
+                // 其他
+                isWasmLoaded: false,
             },
             computed: {
                 progressWidth() {
@@ -1582,7 +1587,6 @@
                 this.$watch('currentDhpStep', this.updateArrowsDuringDhpSteps);
                 this.$watch('currentEncryptStep', this.updateArrowsDuringEncryptSteps);
 
-                // 一定要放在最后
                 this.initWasm()
             },
             updated() {
@@ -1683,6 +1687,8 @@
                         go.importObject
                     )
                     go.run(result.instance) // 启动Go程序，此时Go暴露的函数已挂载到window
+
+                    this.isWasmLoaded = true
                 },
                 prettyJson(jsonStr) {
                     try {
@@ -1695,6 +1701,11 @@
                 async generateTrustedApp() {
                     if (!this.appName) {
                         alert(this.texts.appNameInputAlert);
+                        return;
+                    }
+
+                    if (!this.isWasmLoaded) {
+                        alert(this.texts.wasmLoadAlert);
                         return;
                     }
 
